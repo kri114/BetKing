@@ -88,8 +88,11 @@
   </div>
 </div>
 
+<!-- MOBILE BET SLIP TOGGLE -->
+<button class="slip-toggle" id="slipToggle" onclick="toggleSlip()">🎯 Bet Slip <span class="slip-count"
+id="slipCount">0</span></button>
 <!-- BET SLIP SIDEBAR -->
-<div class="sbar">
+<div class="sbar" id="sbar">
   <div class="sbhdr"><div class="sbti">BET SLIP</div><button class="btn2" onclick="clearSlip()">Clear</button></div>
   <div class="slt">
     <button class="slbt active" onclick="goSlipMode('single',this)">Single</button>

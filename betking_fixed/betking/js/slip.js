@@ -48,8 +48,7 @@ function getCashoutVal(bet){
 
 function cashOutBet(idx){
   const bet=G.activeBets[idx];if(!bet)return;
-  // Cancel the pending resolution interval
-  if(bet.intervalId) clearInterval(bet.intervalId);
+  if(bet.intervalId)clearInterval(bet.intervalId);
   const val=getCashoutVal(bet);
   G.bal+=val;
   G.activeBets.splice(idx,1);
@@ -69,17 +68,18 @@ function showActiveBets(){
     return;
   }
   con.innerHTML=G.activeBets.map((bet,i)=>{
-    const coVal=getCashoutVal(bet);
     const allSports=Object.values(G.evts).flat();
     const ev=allSports.find(e=>e.id===bet.eid);
-    const statusLabel=!ev?'⚠️ Pending':ev.finished?'✅ Resolving...':ev.isLive?'🔴 LIVE':'⏳ Waiting for match to start';
+    const isFinished=ev&&(ev.finished===true||(ev.startTime==='FT'&&!ev.isLive));
+    const statusLabel=!ev?'⏳ Waiting':ev.finished?'✅ Match finished':ev.isLive?'🔴 LIVE':'⏳ Waiting for match to start';
+    const coVal=getCashoutVal(bet);
     return `<div class="abt">
       <div class="abt-ev">${bet.evNm.substring(0,36)}</div>
       <div class="abt-sel">${bet.sel.substring(0,40)}</div>
       <div style="font-size:9px;margin:3px 0;color:var(--txt3)">${statusLabel}</div>
       <div class="abt-row">
         <div><div class="abt-od">${bet.odds}x · Staked ${fmtD(bet.stake)}</div><div style="font-size:9px;color:var(--txt3)">To return: ${fmtD(bet.stake*bet.odds)}</div></div>
-        ${!ev||!ev.finished?`<button class="abt-co" onclick="cashOutBet(${i})">CASH OUT<br><small>${fmtD(coVal)}</small></button>`:''}
+        ${isFinished?`<button class="abt-co" onclick="cashOutBet(${i})">CASH OUT<br><small>${fmtD(coVal)}</small></button>`:`<div style="font-size:9px;color:var(--txt3);text-align:center">Cash out<br>available<br>at FT</div>`}
       </div>
     </div>`;
   }).join('');
@@ -90,8 +90,6 @@ function placeBet(){
   if(!stk||stk<=0){notify('Invalid stake','Enter an amount','lose');return;}
   if(stk>G.bal){notify('Insufficient funds','Visit Bank for a virtual loan','lose');return;}
   if(!G.slip.length){notify('Empty slip','Add selections first','lose');return;}
-
-  // Check that all selected events are actually live or at least started
   const allSports=Object.values(G.evts).flat();
   const notStarted=G.slip.filter(s=>{
     const ev=allSports.find(e=>e.id===s.eid);
@@ -101,7 +99,6 @@ function placeBet(){
     notify('Match not started','Press ▶ Start All first, then place your bet','lose');
     return;
   }
-
   G.bal-=stk;
   const slip=[...G.slip],mode=G.mode;
   const allIn=stk===G.bal+stk;
@@ -124,7 +121,6 @@ function placeBet(){
 }
 
 function simBet(sels,stk,o,betId,allIn,legs){
-  // Poll every 1.5s until the event this bet is on has finished
   const intervalId=setInterval(()=>{
     const allSports=Object.values(G.evts).flat();
     const allDone=sels.every(s=>{
@@ -133,7 +129,6 @@ function simBet(sels,stk,o,betId,allIn,legs){
     });
     if(!allDone)return;
     clearInterval(intervalId);
-    // Update the stored intervalId so cashout knows it's done
     const betRec=G.activeBets.find(b=>b.id===betId);
     if(betRec)betRec.intervalId=null;
     const win=Math.random()<Math.min(.9,1/o*.92);

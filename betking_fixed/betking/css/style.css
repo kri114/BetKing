@@ -278,6 +278,8 @@ canvas{width:100%;display:block;image-rendering:pixelated}
 .hidden{display:none!important}
 .btn2{background:var(--bg3);border:1px solid var(--brd);border-radius:6px;color:var(--txt2);font-size:11px;padding:5px 10px;cursor:pointer}
 .btn2:hover{border-color:var(--brd2);color:var(--txt)}
+.wbtn{background:rgba(225,6,0,.15);border:1px solid rgba(225,6,0,.5);border-radius:5px;color:#E10600;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;cursor:pointer;letter-spacing:.5px;}
+.wbtn:hover{background:rgba(225,6,0,.3);}
 
 .lf-row{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:4px 0}
 .start-all-btn{background:rgba(26,144,240,.13);border:1px solid rgba(26,144,240,.45);border-radius:5px;padding:4px 12px;cursor:pointer;font-size:10px;font-weight:700;color:var(--blu);transition:all .2s;white-space:nowrap;margin-left:auto}

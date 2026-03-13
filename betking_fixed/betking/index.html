@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BetKing</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="app">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo">BETKING<sub>VIRTUAL TYCOON</sub></div>
+  <div class="hdr-r">
+    <button class="dly-btn" id="dlyBtn" onclick="claimDaily()">+ DAILY $50</button>
+    <div class="bal-box"><div class="bal-l">Balance</div><div class="bal-v" id="balDisp" onclick="tryUnlockAdmin()" style="cursor:pointer;user-select:none">$100</div></div>
+    <div class="rnk-box"><div class="rnk-l">Rank</div><div class="rnk-v" id="rnkDisp">#—</div></div>
+    <div class="uav-hdr" id="hdrAv" onclick="goTab('profile',document.querySelector('.nb[data-tab=profile]'))" style="background:#1A2535;color:var(--gold)">ME</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="nb active" data-tab="sportsbook" onclick="goTab('sportsbook',this)">🎯 Sportsbook</button>
+  <button class="nb" data-tab="live" onclick="goTab('live',this)">📺 Live</button>
+  <button class="nb" data-tab="leaderboard" onclick="goTab('leaderboard',this)">🏆 Rankings</button>
+  <button class="nb" data-tab="history" onclick="goTab('history',this)">📋 History</button>
+  <button class="nb" data-tab="loans" onclick="goTab('loans',this)">💳 Bank</button>
+  <button class="nb" data-tab="profile" onclick="goTab('profile',this)">👤 Profile</button>
+</div>
+
+<div class="main">
+<!-- MAIN CONTENT -->
+<div class="content" id="mainContent">
+
+  <!-- SPORTSBOOK -->
+  <div id="tab-sportsbook">
+    <div class="scards">
+      <div class="scard"><div class="scard-l">Balance</div><div class="scard-v" style="color:var(--gold)" id="stNW">$100</div></div>
+      <div class="scard"><div class="scard-l">Wins</div><div class="scard-v" style="color:var(--grn)" id="stW">0</div></div>
+      <div class="scard"><div class="scard-l">Losses</div><div class="scard-v" style="color:var(--red)" id="stL">0</div></div>
+      <div class="scard"><div class="scard-l">Win Rate</div><div class="scard-v" style="color:var(--blu)" id="stWR">—</div></div>
+    </div>
+    <div class="stabs">
+      <button class="stab active" data-s="football" onclick="goSport('football',this)">⚽ Football</button>
+      <button class="stab" data-s="basketball" onclick="goSport('basketball',this)">🏀 Basketball</button>
+      <button class="stab" data-s="horses" onclick="goSport('horses',this)">🐎 Horses</button>
+      <button class="stab" data-s="dogs" onclick="goSport('dogs',this)">🐕 Dogs</button>
+      <button class="stab" data-s="mma" onclick="goSport('mma',this)">🥊 MMA</button>
+      <button class="stab" data-s="tennis" onclick="goSport('tennis',this)">🎾 Tennis</button>
+      <button class="stab" data-s="cricket" onclick="goSport('cricket',this)">🏏 Cricket</button>
+      <button class="stab" data-s="f1" onclick="goSport('f1',this)">🏎️ F1</button>
+    </div>
+    <div id="lgFilter" class="lf"></div>
+    <div id="newRoundCon"></div>
+    <div id="evtsCon"></div>
+  </div>
+
+  <!-- LIVE -->
+  <div id="tab-live" class="hidden">
+    <div class="secti">Live Now <span>click to watch</span></div>
+    <div id="liveCon"></div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div id="tab-leaderboard" class="hidden">
+    <div class="secti">Global Rankings <span>net worth = rank</span></div>
+    <div class="lbcard" id="lbCon"></div>
+  </div>
+
+  <!-- HISTORY -->
+  <div id="tab-history" class="hidden">
+    <div class="secti">Bet History <span id="histCnt">0 bets</span></div>
+    <div class="hlist" id="histCon"><div style="text-align:center;padding:40px;color:var(--txt3)">No bets yet</div></div>
+  </div>
+
+  <!-- BANK -->
+  <div id="tab-loans" class="hidden">
+    <div class="secti">BetKing Bank <span>virtual credit</span></div>
+    <div id="bankCon"></div>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="tab-profile" class="hidden">
+    <div class="secti">My Profile <span>customize your account</span></div>
+    <div class="profile-wrap" id="profileCon"></div>
+  </div>
+</div>
+
+<!-- BET SLIP SIDEBAR -->
+<div class="sbar">
+  <div class="sbhdr"><div class="sbti">BET SLIP</div><button class="btn2" onclick="clearSlip()">Clear</button></div>
+  <div class="slt">
+    <button class="slbt active" onclick="goSlipMode('single',this)">Single</button>
+    <button class="slbt" onclick="goSlipMode('acca',this)">Acca</button>
+    <button class="slbt" onclick="showActiveBets()">Active</button>
+  </div>
+  <div class="slc" id="slipCon">
+    <div class="esl"><div style="font-size:26px;margin-bottom:6px">🎯</div><div style="font-size:11px;color:var(--txt3)">Pick odds to add to slip</div></div>
+  </div>
+  <div id="stakeArea" class="hidden">
+    <div class="sss">
+      <div class="ssk-l"><span>Quick Stake</span><span id="slipOdds" style="color:var(--gold);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700"></span></div>
+      <div class="spreset">
+        <button class="sp-btn" onclick="setStk(10)">$10</button>
+        <button class="sp-btn" onclick="setStk(25)">$25</button>
+        <button class="sp-btn" onclick="setStk(50)">$50</button>
+        <button class="sp-btn" onclick="setStk(100)">$100</button>
+        <button class="sp-btn" onclick="setStk(-1)">ALL IN</button>
+      </div>
+      <input class="sinp" type="number" id="stkInp" placeholder="Enter stake..." oninput="updPay()" min="1">
+      <div class="spay">
+        <div><div class="spay-l">Potential Return</div><div class="spay-v" id="payAmt">$0.00</div></div>
+        <div style="text-align:right"><div class="spay-l">Profit</div><div style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--txt2)" id="profAmt">$0.00</div></div>
+      </div>
+      <button class="plbtn" onclick="placeBet()">PLACE BET</button>
+    </div>
+  </div>
+</div>
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- LIVE VIEWER -->
+<div class="vov hidden" id="vov" onclick="if(event.target===this)closeViewer()">
+  <div class="vpan" id="vpan"></div>
+</div>
+
+<!-- NOTIF -->
+<div class="notif" id="nfEl">
+  <div class="notif-ti" id="nfTi"></div>
+  <div class="notif-bd" id="nfBd"></div>
+</div>
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/generate.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/viewer.js"></script>
+  <script src="js/slip.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/storage.js"></script>
+</body></html>

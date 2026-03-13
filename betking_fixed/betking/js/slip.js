@@ -90,15 +90,6 @@ function placeBet(){
   if(!stk||stk<=0){notify('Invalid stake','Enter an amount','lose');return;}
   if(stk>G.bal){notify('Insufficient funds','Visit Bank for a virtual loan','lose');return;}
   if(!G.slip.length){notify('Empty slip','Add selections first','lose');return;}
-  const allSports=Object.values(G.evts).flat();
-  const notStarted=G.slip.filter(s=>{
-    const ev=allSports.find(e=>e.id===s.eid);
-    return !ev||(!ev.isLive&&!ev.finished);
-  });
-  if(notStarted.length){
-    notify('Match not started','Press ▶ Start All first, then place your bet','lose');
-    return;
-  }
   G.bal-=stk;
   const slip=[...G.slip],mode=G.mode;
   const allIn=stk===G.bal+stk;
@@ -125,7 +116,10 @@ function simBet(sels,stk,o,betId,allIn,legs){
     const allSports=Object.values(G.evts).flat();
     const allDone=sels.every(s=>{
       const ev=allSports.find(e=>e.id===s.eid);
-      return ev&&(ev.finished===true||(ev.startTime==='FT'&&!ev.isLive));
+      // If event hasn't started yet, wait for it
+      if(!ev)return false;
+      // Resolve if finished, or if it was never started after 30s (bet placed before start)
+      return ev.finished===true||(ev.startTime==='FT'&&!ev.isLive);
     });
     if(!allDone)return;
     clearInterval(intervalId);
@@ -142,7 +136,6 @@ function simBet(sels,stk,o,betId,allIn,legs){
   },1500);
   return intervalId;
 }
-
 function claimDaily(){
   if(G.daily)return;G.bal+=50;G.daily=true;
   document.getElementById('dlyBtn').disabled=true;document.getElementById('dlyBtn').textContent='✓ CLAIMED';

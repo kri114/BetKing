@@ -34,31 +34,25 @@ function genFootball(){
       const isLive=false;
       const hLU=getLU(h.n)||{f:'4-3-3',players:Array.from({length:11},(_,j)=>({name:'Player '+(j+1),pos:'—',num:j+1,ovr:75,x:.5,y:.1+j*.08}))};
       const aLU=getLU(a.n)||{f:'4-3-3',players:Array.from({length:11},(_,j)=>({name:'Player '+(j+1),pos:'—',num:j+1,ovr:75,x:.5,y:.1+j*.08}))};
-      // Generate player props for top players
-      const hProps = genPlayerProps(hLU.players, h.n);
-      const aProps = genPlayerProps(aLU.players, a.n);
-      G.evts.football.push({id:'f'+lgi+'_'+i,sport:'football',league:lg,home:h.n,homeOvr:h.o,away:a.n,awayOvr:a.o,hLU,aLU,hProps,aProps,odds:genOdds(ho,ao),isLive,minute:isLive?ri(15,80):0,hScore:isLive?ri(0,2):0,aScore:isLive?ri(0,2):0,startTime:isLive?'LIVE':ri(1,10)+'h'});
+      const hProps=genPlayerProps(hLU.players,h.n);
+      const aProps=genPlayerProps(aLU.players,a.n);
+      G.evts.football.push({id:'f'+lgi+'_'+i,sport:'football',league:lg,home:h.n,homeOvr:h.o,away:a.n,awayOvr:a.o,hLU,aLU,hProps,aProps,odds:genOdds(ho,ao),isLive,minute:0,hScore:0,aScore:0,startTime:ri(1,10)+'h'});
     }
   });
 }
 
-function genPlayerProps(players, teamName) {
-  // generate props for forwards/attackers and midfielders
-  const attackers = players.filter(p => ['ST','CF','LW','RW','CAM','RAM','LAM','AM'].includes(p.pos));
-  return attackers.slice(0,3).map(p => ({
-    name: p.name,
-    pos: p.pos,
-    ovr: p.ovr,
-    anytime: parseFloat(rnd(1.8, 5.5).toFixed(2)),
-    first: parseFloat(rnd(5, 12).toFixed(2)),
-    assist: parseFloat(rnd(2.5, 5.5).toFixed(2)),
-    shots2: parseFloat(rnd(1.5, 2.8).toFixed(2)),
-    shots3: parseFloat(rnd(2.2, 4.5).toFixed(2)),
-    card: parseFloat(rnd(4, 9).toFixed(2)),
+function genPlayerProps(players,teamName){
+  const attackers=players.filter(p=>['ST','CF','LW','RW','CAM','RAM','LAM','AM'].includes(p.pos));
+  return attackers.slice(0,3).map(p=>({
+    name:p.name,pos:p.pos,ovr:p.ovr,
+    anytime:parseFloat(rnd(1.8,5.5).toFixed(2)),
+    first:parseFloat(rnd(5,12).toFixed(2)),
+    assist:parseFloat(rnd(2.5,5.5).toFixed(2)),
+    shots2:parseFloat(rnd(1.5,2.8).toFixed(2)),
+    shots3:parseFloat(rnd(2.2,4.5).toFixed(2)),
+    card:parseFloat(rnd(4,9).toFixed(2)),
   }));
 }
-
-
 
 function genBasketball(){
   G.evts.basketball=[];
@@ -68,10 +62,9 @@ function genBasketball(){
     const ho=odds(h.o,a.o),ao=odds(a.o,h.o);
     const spr=parseFloat(Math.abs(h.o-a.o)*.45).toFixed(1);
     const isLive=false;
-    const hLU=getBLU(h.n), aLU=getBLU(a.n);
-    // Player props
-    const hProps = hLU.map(p=>({name:p.name,pos:p.pos,pts20:parseFloat(rnd(1.5,3).toFixed(2)),pts25:parseFloat(rnd(2.5,5.5).toFixed(2)),reb8:parseFloat(rnd(1.6,3.5).toFixed(2)),ast6:parseFloat(rnd(1.7,4).toFixed(2)),dbl:parseFloat(rnd(2.5,5).toFixed(2))}));
-    const aProps = aLU.map(p=>({name:p.name,pos:p.pos,pts20:parseFloat(rnd(1.5,3).toFixed(2)),pts25:parseFloat(rnd(2.5,5.5).toFixed(2)),reb8:parseFloat(rnd(1.6,3.5).toFixed(2)),ast6:parseFloat(rnd(1.7,4).toFixed(2)),dbl:parseFloat(rnd(2.5,5).toFixed(2))}));
+    const hLU=getBLU(h.n),aLU=getBLU(a.n);
+    const hProps=hLU.map(p=>({name:p.name,pos:p.pos,pts20:parseFloat(rnd(1.5,3).toFixed(2)),pts25:parseFloat(rnd(2.5,5.5).toFixed(2)),reb8:parseFloat(rnd(1.6,3.5).toFixed(2)),ast6:parseFloat(rnd(1.7,4).toFixed(2)),dbl:parseFloat(rnd(2.5,5).toFixed(2))}));
+    const aProps=aLU.map(p=>({name:p.name,pos:p.pos,pts20:parseFloat(rnd(1.5,3).toFixed(2)),pts25:parseFloat(rnd(2.5,5.5).toFixed(2)),reb8:parseFloat(rnd(1.6,3.5).toFixed(2)),ast6:parseFloat(rnd(1.7,4).toFixed(2)),dbl:parseFloat(rnd(2.5,5).toFixed(2))}));
     G.evts.basketball.push({
       id:'b'+i,sport:'basketball',league:pick(NBALEAGUE),
       home:h.n,homeOvr:h.o,away:a.n,awayOvr:a.o,
@@ -84,7 +77,7 @@ function genBasketball(){
         hHT:parseFloat(rnd(1.7,2.3).toFixed(2)),aHT:parseFloat(rnd(1.7,2.3).toFixed(2)),
         m5:parseFloat(rnd(3.5,5.5).toFixed(2)),m10:parseFloat(rnd(2.5,4).toFixed(2)),m15:parseFloat(rnd(2,3.5).toFixed(2)),
         ot:parseFloat(rnd(4,7).toFixed(2)),noOt:parseFloat(rnd(1.1,1.4).toFixed(2))},
-      isLive,hScore:isLive?ri(50,100):0,aScore:isLive?ri(50,100):0,quarter:isLive?ri(1,4):0,startTime:isLive?'LIVE':ri(1,8)+'h'
+      isLive,hScore:0,aScore:0,quarter:0,startTime:ri(1,8)+'h'
     });
   }
 }
@@ -125,7 +118,6 @@ function genTennis(){
   for(let i=0;i<Math.min(pool.length-1,12);i+=2){
     const p1=pool[i],p2=pool[i+1];
     const o1=odds(p1.o,p2.o),o2=odds(p2.o,p1.o);
-    const isLive=false;
     G.evts.tennis.push({
       id:'t'+i,sport:'tennis',tournament:pick(TENNIS_TOURNAMENTS),
       p1:p1.n,p1ovr:p1.o,p1country:p1.country,
@@ -137,8 +129,7 @@ function genTennis(){
         tb:parseFloat(rnd(1.5,2.5).toFixed(2)),notb:parseFloat(rnd(1.5,2.5).toFixed(2)),
         str3:parseFloat(rnd(1.3,1.8).toFixed(2)),str4:parseFloat(rnd(2,3.5).toFixed(2)),str5:parseFloat(rnd(3,6).toFixed(2))
       },
-      isLive, p1Sets:isLive?ri(0,2):0, p2Sets:isLive?ri(0,2):0,
-      startTime:isLive?'LIVE':ri(1,8)+'h'
+      isLive:false,p1Sets:0,p2Sets:0,startTime:ri(1,8)+'h'
     });
   }
 }
@@ -161,9 +152,7 @@ function genCricket(){
         topHb:parseFloat(rnd(2.5,5).toFixed(2)),topAb:parseFloat(rnd(2.5,5).toFixed(2)),
         draw:format==='Test Match'?parseFloat(rnd(3,6).toFixed(2)):null
       },
-      isLive,hRuns:isLive?ri(80,250):0,aRuns:isLive?ri(80,250):0,
-      hWkts:isLive?ri(0,9):0,overs:isLive?ri(10,45):0,
-      startTime:isLive?'LIVE':ri(1,8)+'h'
+      isLive:false,hRuns:0,aRuns:0,hWkts:0,overs:0,startTime:ri(1,8)+'h'
     });
   }
 }
@@ -175,8 +164,6 @@ function genF1(){
   const circuits=shuf(F1_CIRCUITS).slice(0,5);
   circuits.forEach((circuit,ci)=>{
     const drivers=shuf(F1_DRIVERS);
-    const isLive=false;
-    // Race winner odds based on OVR
     const raceDrivers=drivers.slice(0,10).map(d=>{
       const wo=parseFloat(Math.max(1.5,Math.pow(20/d.o*10,1.6)*rnd(0.85,1.2)).toFixed(2));
       const podO=parseFloat((wo*.28).toFixed(2));
@@ -184,9 +171,8 @@ function genF1(){
       const top10O=parseFloat((wo*.1).toFixed(2));
       const poleO=parseFloat(Math.max(1.5,wo*.9).toFixed(2));
       const flO=parseFloat(Math.max(2,wo*.7).toFixed(2));
-      return {...d, raceWin:wo, podium:podO, top6:top6O, top10:top10O, pole:poleO, fastLap:flO};
+      return {...d,raceWin:wo,podium:podO,top6:top6O,top10:top10O,pole:poleO,fastLap:flO};
     });
-    // Head to head teammate pairings
     const h2h=[];
     const teamMap={};
     raceDrivers.forEach(d=>{if(!teamMap[d.team])teamMap[d.team]=[];teamMap[d.team].push(d);});
@@ -200,95 +186,90 @@ function genF1(){
     });
     const safetyCarO=parseFloat(rnd(1.3,2.2).toFixed(2));
     const noSCO=parseFloat(rnd(1.5,2.5).toFixed(2));
+    const totalLaps=ri(55,70);
     G.evts.f1.push({
       id:'f1_'+ci,sport:'f1',circuit,drivers:raceDrivers,h2h,
       safetyCarO,noSCO,
       dnfO:parseFloat(rnd(1.4,2.2).toFixed(2)),
       redFlagO:parseFloat(rnd(2.5,5).toFixed(2)),
       lapsLeadO:parseFloat(rnd(1.4,2.5).toFixed(2)),
-      isLive,lap:isLive?ri(10,55):0,totalLaps:ri(55,70),
-      leader:isLive?drivers[0].n:null,
-      startTime:isLive?'LIVE':ri(1,7)+'d'
+      isLive:false,lap:0,totalLaps,
+      leader:null,
+      startTime:ri(1,7)+'d'
     });
   });
 }
-
 
 // ==================== START ALL ====================
 function startAll(sport){
   const evts=G.evts[sport]||[];
   evts.forEach(ev=>{
-    if(!ev.isLive){
+    if(!ev.isLive&&!ev.finished){
       ev.isLive=true;
       ev.startTime='LIVE';
-      // Initialize live state per sport
-      if(sport==='football'){ev.minute=ev.minute||ri(1,30);ev.hScore=ev.hScore||0;ev.aScore=ev.aScore||0;}
-      else if(sport==='basketball'){ev.quarter=ev.quarter||1;ev.hScore=ev.hScore||ri(10,40);ev.aScore=ev.aScore||ri(10,40);}
-      else if(sport==='horses'||sport==='dogs'){/* race progress handled by rProg */}
-      else if(sport==='mma'){ev.round=ev.round||1;}
-      else if(sport==='tennis'){ev.p1Sets=ev.p1Sets||0;ev.p2Sets=ev.p2Sets||0;}
-      else if(sport==='cricket'){ev.hRuns=ev.hRuns||ri(20,80);ev.hWkts=ev.hWkts||0;ev.overs=ev.overs||'1.0';}
-      else if(sport==='f1'){ev.lap=ev.lap||ri(1,15);ev.leader=ev.drivers&&ev.drivers[0]?ev.drivers[0].n:null;}
+      if(sport==='football'){ev.minute=0;ev.hScore=0;ev.aScore=0;}
+      else if(sport==='basketball'){ev.quarter=1;ev.hScore=0;ev.aScore=0;}
+      else if(sport==='mma'){ev.round=1;}
+      else if(sport==='tennis'){ev.p1Sets=0;ev.p2Sets=0;}
+      else if(sport==='cricket'){ev.hRuns=0;ev.hWkts=0;ev.overs='0.0';}
+      else if(sport==='f1'){ev.lap=0;ev.leader=ev.drivers&&ev.drivers[0]?ev.drivers[0].n:null;}
     }
   });
   renderEvents();
 }
 
 // ==================== ROUND MANAGEMENT ====================
-const SPORT_FINISH = {
-  football:   ev => ev.minute >= 90,
-  basketball: ev => (ev.quarter||0) >= 4 && (ev.hScore||0) + (ev.aScore||0) > 150,
-  horses:     ev => typeof rProg !== 'undefined' && rProg[ev.id] && rProg[ev.id].some(p => p >= 100),
-  dogs:       ev => typeof rProg !== 'undefined' && rProg[ev.id] && rProg[ev.id].some(p => p >= 100),
-  mma:        ev => (ev.round||0) >= 5,
-  tennis:     ev => (ev.p1Sets||0) >= 2 || (ev.p2Sets||0) >= 2,
-  cricket:    ev => (ev.hWkts||0) >= 10,
-  f1:         ev => ev.lap >= ev.totalLaps,
+const SPORT_FINISH={
+  football:   ev=>ev.minute>=90,
+  basketball: ev=>(ev.quarter||0)>=4&&(ev.hScore||0)+(ev.aScore||0)>150,
+  horses:     ev=>typeof rProg!=='undefined'&&rProg[ev.id]&&rProg[ev.id].some(p=>p>=100),
+  dogs:       ev=>typeof rProg!=='undefined'&&rProg[ev.id]&&rProg[ev.id].some(p=>p>=100),
+  mma:        ev=>(ev.round||0)>=5,
+  tennis:     ev=>(ev.p1Sets||0)>=2||(ev.p2Sets||0)>=2,
+  cricket:    ev=>(ev.hWkts||0)>=10,
+  f1:         ev=>ev.lap>=ev.totalLaps&&typeof rProg!=='undefined'&&rProg[ev.id]&&rProg[ev.id].every(p=>p>=100),
 };
 
-let _roundEndDebounce = {};
-function checkRoundEnd(sport) {
-  // Debounce per sport to avoid firing multiple times per tick
-  if (_roundEndDebounce[sport]) return;
-  const evts = G.evts[sport] || [];
-  const live = evts.filter(e => e.isLive && !e.finished);
-  if (!live.length) return;
-  const check = SPORT_FINISH[sport];
-  if (!check) return;
-  const allDone = live.every(e => check(e));
-  if (allDone) {
-    _roundEndDebounce[sport] = true;
-    setTimeout(() => { delete _roundEndDebounce[sport]; }, 5000);
-    live.forEach(e => { e.isLive = false; e.finished = true; e.startTime = 'FT'; });
+let _roundEndDebounce={};
+function checkRoundEnd(sport){
+  if(_roundEndDebounce[sport])return;
+  const evts=G.evts[sport]||[];
+  const live=evts.filter(e=>e.isLive&&!e.finished);
+  if(!live.length)return;
+  const check=SPORT_FINISH[sport];
+  if(!check)return;
+  const allDone=live.every(e=>check(e));
+  if(allDone){
+    _roundEndDebounce[sport]=true;
+    setTimeout(()=>{delete _roundEndDebounce[sport];},5000);
+    live.forEach(e=>{e.isLive=false;e.finished=true;e.startTime='FT';});
     showNewRoundBtn(sport);
-    try { renderEvents(); } catch(e) {}
+    try{renderEvents();}catch(e){}
   }
 }
 
-function showNewRoundBtn(sport) {
-  const con = document.getElementById('newRoundCon');
-  if (!con) return;
-  con.innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+function showNewRoundBtn(sport){
+  const con=document.getElementById('newRoundCon');
+  if(!con)return;
+  con.innerHTML=`<div style="display:flex;align-items:center;gap:10px;padding:8px 0">
     <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:var(--grn);font-weight:700">✅ Round complete!</div>
     <button id="newRoundBtn" class="start-all-btn" style="background:rgba(0,212,122,.15);border-color:rgba(0,212,122,.5);color:var(--grn)" onclick="newRound('${sport}')">🔄 New Round</button>
   </div>`;
 }
 
-function newRound(sport) {
-  const nrc = document.getElementById('newRoundCon');
-  if (nrc) nrc.innerHTML = '';
-  // Wipe rProg for races
-  if (sport === 'horses' || sport === 'dogs' || sport === 'f1') {
-    (G.evts[sport] || []).forEach(e => { if(typeof rProg !== 'undefined') delete rProg[e.id]; });
+function newRound(sport){
+  const nrc=document.getElementById('newRoundCon');
+  if(nrc)nrc.innerHTML='';
+  if(sport==='horses'||sport==='dogs'||sport==='f1'){
+    (G.evts[sport]||[]).forEach(e=>{if(typeof rProg!=='undefined')delete rProg[e.id];});
   }
-  // Regenerate only this sport
-  if (sport === 'football') genFootball();
-  else if (sport === 'basketball') genBasketball();
-  else if (sport === 'horses') genRaces('horses');
-  else if (sport === 'dogs') genRaces('dogs');
-  else if (sport === 'mma') genMMA();
-  else if (sport === 'tennis') genTennis();
-  else if (sport === 'cricket') genCricket();
-  else if (sport === 'f1') genF1();
+  if(sport==='football')genFootball();
+  else if(sport==='basketball')genBasketball();
+  else if(sport==='horses')genRaces('horses');
+  else if(sport==='dogs')genRaces('dogs');
+  else if(sport==='mma')genMMA();
+  else if(sport==='tennis')genTennis();
+  else if(sport==='cricket')genCricket();
+  else if(sport==='f1')genF1();
   renderAll();
 }

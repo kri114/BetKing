@@ -273,6 +273,43 @@ function rF1(e){
     </div>`;
   }).join('');
 
+  const winBtns=e.drivers.slice(0,6).map(d=>ob(e.id,e.circuit,d.n+' Race Win',d.raceWin,'f1','win_'+d.num,d.n.split(' ').pop())).join('');
+  const podBtns=e.drivers.slice(0,6).map(d=>ob(e.id,e.circuit,d.n+' Podium',d.podium,'f1','pod_'+d.num,d.n.split(' ').pop())).join('');
+  const poleBtns=e.drivers.slice(0,6).map(d=>ob(e.id,e.circuit,d.n+' Pole',d.pole,'f1','pole_'+d.num,d.n.split(' ').pop())).join('');
+  const flBtns=e.drivers.slice(0,6).map(d=>ob(e.id,e.circuit,d.n+' Fastest Lap',d.fastLap,'f1','fl_'+d.num,d.n.split(' ').pop())).join('');
+  const h2hHtml=e.h2h.map(h=>`<div class="os"><div class="ost">${h.team} H2H</div><div class="or">${ob(e.id,e.circuit,h.d1+' beats '+h.d2,h.h1,'f1','h2h_'+h.d1.replace(/ /g,'_'),h.d1.split(' ').pop())+ob(e.id,e.circuit,h.d2+' beats '+h.d1,h.h2,'f1','h2h_'+h.d2.replace(/ /g,'_'),h.d2.split(' ').pop())}</div></div>`).join('');
+
+  const showLid=e.id+'grid';
+  const driversHtml=G.showLU[showLid]?`<div style="background:var(--bg3);border-radius:6px;margin-bottom:8px;overflow:hidden">${driverRows}</div>`:'';
+
+  return `<div class="rcard">
+    <div class="rchdr">
+      <div>
+        <div class="rc-ti">🏎️ ${e.circuit}</div>
+        <div class="rc-in">${e.drivers.length} drivers${e.isLive?' · Lap '+e.lap+'/'+e.totalLaps:''}</div>
+      </div>
+      <div style="display:flex;gap:5px;align-items:center">
+        <button class="wbtn" onclick="openViewer('${e.id}',event)">▶ Watch</button>
+        ${badge}
+      </div>
+    </div>
+    ${e.isLive?`<div style="padding:6px 10px;background:rgba(225,6,0,.08);border-bottom:1px solid rgba(225,6,0,.2);display:flex;gap:10px;align-items:center"><span class="lbdg">LAP ${e.lap}/${e.totalLaps}</span><span style="font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700">P1: ${e.leader}</span></div>`:''}
+    <div style="padding:6px 10px 4px">
+      <button class="lu-btn" onclick="toggleLU('${showLid}')">${G.showLU[showLid]?'▲ Hide grid':'▼ Starting grid'}</button>
+    </div>
+    ${driversHtml}
+    <div style="padding:4px 10px 10px">
+      ${os('Race Winner',winBtns)}
+      ${os('Podium Finish (Top 3)',podBtns)}
+      ${os('Pole Position',poleBtns)}
+      ${os('Fastest Lap',flBtns)}
+      ${h2hHtml}
+      ${os('Safety Car',ob(e.id,e.circuit,'Safety Car Yes',e.safetyCarO,'f1','sc_y','Yes')+ob(e.id,e.circuit,'No Safety Car',e.noSCO,'f1','sc_n','No'))}
+      ${os('Race Incidents',ob(e.id,e.circuit,'DNF Occurs',e.dnfO,'f1','dnf','DNF')+ob(e.id,e.circuit,'Red Flag',e.redFlagO,'f1','redflag','Red Flag'))}
+    </div>
+  </div>`;
+}
+
   // Odds sections
   const winBtns=e.drivers.slice(0,6).map(d=>ob(e.id,e.circuit,d.n+' Race Win',d.raceWin,'f1','win_'+d.num,d.n.split(' ').pop())).join('');
   const podBtns=e.drivers.slice(0,6).map(d=>ob(e.id,e.circuit,d.n+' Podium',d.podium,'f1','pod_'+d.num,d.n.split(' ').pop())).join('');

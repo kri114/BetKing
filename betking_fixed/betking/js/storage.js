@@ -42,15 +42,12 @@ setInterval(save,15000);
 })();
 
 // ==================== BACKGROUND GAME TICKER ====================
-// Advances all live events even when the viewer is closed
-// Tick every 2 seconds — slow enough to watch races before they finish
 setInterval(() => {
   let anyLive = false;
   Object.keys(G.evts).forEach(sport => {
     (G.evts[sport] || []).filter(e => e.isLive && !e.finished).forEach(ev => {
       anyLive = true;
       if (sport === 'football') {
-        // ~3 minutes per real second (90 min over ~30 ticks)
         if (ev.minute < 90) {
           ev.minute = Math.min(90, ev.minute + 3);
           if (Math.random() < 0.06) {
@@ -81,20 +78,17 @@ setInterval(() => {
           ev.overs = (Math.round((parseFloat(ev.overs || 0) + 0.1) * 10) / 10).toFixed(1);
         }
       } else if (sport === 'f1') {
-        // ~1 lap per tick — totalLaps is 55-70 so race lasts ~2 minutes real time
-        if (ev.lap < ev.totalLaps) ev.lap = Math.min(ev.totalLaps, ev.lap + 1);
+        if (ev.lap < ev.totalLaps) ev.lap = Math.min(ev.totalLaps, ev.lap + 0.5);
         if (!rProg[ev.id]) rProg[ev.id] = (ev.drivers || []).map((_, i) => i * 2.5);
         rProg[ev.id].forEach((_, i) => {
-          rProg[ev.id][i] = Math.min(100, (rProg[ev.id][i] || 0) + rnd(0.3, 0.8) * (1 - i * 0.012));
+          rProg[ev.id][i] = Math.min(100, (rProg[ev.id][i] || 0) + rnd(0.05, 0.15) * (1 - i * 0.012));
         });
         const leader = [...(rProg[ev.id].keys())].sort((a, b) => rProg[ev.id][b] - rProg[ev.id][a])[0];
         if (ev.drivers && ev.drivers[leader]) ev.leader = ev.drivers[leader].n;
       }
-      // Check finish
       if (typeof checkRoundEnd === 'function') checkRoundEnd(sport);
     });
   });
-  // Refresh UI if anything is live
   if (anyLive && Math.random() < 0.4) {
     try { renderEvents(); updateUI(); } catch(e) {}
   }

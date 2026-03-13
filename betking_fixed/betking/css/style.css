@@ -85,8 +85,8 @@ body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font
 .eteam.r{text-align:right}
 .escore{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--gold);text-align:center;min-width:48px;line-height:1}
 .escore small{display:block;font-size:9px;color:var(--txt3);font-family:'DM Sans',sans-serif;font-weight:400}
-.wbtn{position:absolute;top:7px;right:7px;background:rgba(26,144,240,.12);border:1px solid rgba(26,144,240,.4);border-radius:4px;color:var(--blu);font-size:9px;padding:2px 6px;cursor:pointer;z-index:2}
-.wbtn:hover{background:rgba(26,144,240,.3)}
+.wbtn{background:rgba(225,6,0,.15);border:1px solid rgba(225,6,0,.5);border-radius:5px;color:#E10600;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;cursor:pointer;letter-spacing:.5px;}
+.wbtn:hover{background:rgba(225,6,0,.3);}
 
 /* CASHOUT badge on active bets */
 .cobdg{font-size:8px;background:rgba(0,212,122,.12);border:1px solid rgba(0,212,122,.3);color:var(--grn);padding:1px 5px;border-radius:3px;cursor:pointer}

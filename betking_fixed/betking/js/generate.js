@@ -140,7 +140,6 @@ function genCricket(){
   for(let i=0;i<Math.min(pool.length-1,8);i+=2){
     const h=pool[i],a=pool[i+1];
     const ho=odds(h.o,a.o),ao=odds(a.o,h.o);
-    const isLive=false;
     const format=pick(CRICKET_FORMATS);
     G.evts.cricket.push({
       id:'c'+i,sport:'cricket',format,
@@ -156,8 +155,6 @@ function genCricket(){
     });
   }
 }
-
-function generateAll(){genFootball();genBasketball();genRaces('horses');genRaces('dogs');genMMA();genTennis();genCricket();genF1();}
 
 function genF1(){
   G.evts.f1=[];
@@ -199,6 +196,8 @@ function genF1(){
     });
   });
 }
+
+function generateAll(){genFootball();genBasketball();genRaces('horses');genRaces('dogs');genMMA();genTennis();genCricket();genF1();}
 
 // ==================== START ALL ====================
 function startAll(sport){

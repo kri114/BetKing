@@ -191,3 +191,14 @@ function renderBank(){
 }
 function takeLoan(a,r){G.bal+=a;G.debt+=a*(1+r/100);notify('Loan Approved!',fmt(a)+' added. Total owed: '+fmtD(G.debt),'win');updateUI();renderBank();}
 function repay(){if(G.bal<G.debt){notify('Insufficient balance','Win more bets first!','lose');return;}G.bal-=G.debt;G.debt=0;notify('Debt Cleared!','Loan fully repaid','win');updateUI();renderBank();}
+function toggleSlip(){
+  const sbar=document.getElementById('sbar');
+  sbar.classList.toggle('open');
+}
+
+function updateSlipCount(){
+  const cnt=document.getElementById('slipCount');
+  if(cnt)cnt.textContent=G.slip.length;
+  const btn=document.getElementById('slipToggle');
+  if(btn)btn.style.display=G.slip.length>0||window.innerWidth<=768?'flex':'none';
+}

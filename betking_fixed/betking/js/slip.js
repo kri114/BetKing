@@ -42,13 +42,14 @@ function updPay(){
 
 // ==================== CASH OUT ====================
 function getCashoutVal(bet){
-  // Cash out value = stake * current_odds_fraction (simulated between 40-80% of potential win)
   const frac=rnd(0.4,0.8);
   return parseFloat((bet.stake*bet.odds*frac).toFixed(2));
 }
 
 function cashOutBet(idx){
   const bet=G.activeBets[idx];if(!bet)return;
+  // Cancel the pending resolution interval
+  if(bet.intervalId) clearInterval(bet.intervalId);
   const val=getCashoutVal(bet);
   G.bal+=val;
   G.activeBets.splice(idx,1);
@@ -61,7 +62,6 @@ function cashOutBet(idx){
 function showActiveBets(){
   G.mode='active';
   document.querySelectorAll('.slbt').forEach(b=>b.classList.remove('active'));
-  // highlight Active tab
   const con=document.getElementById('slipCon');
   document.getElementById('stakeArea').classList.add('hidden');
   if(!G.activeBets.length){
@@ -70,12 +70,16 @@ function showActiveBets(){
   }
   con.innerHTML=G.activeBets.map((bet,i)=>{
     const coVal=getCashoutVal(bet);
+    const allSports=Object.values(G.evts).flat();
+    const ev=allSports.find(e=>e.id===bet.eid);
+    const statusLabel=!ev?'⚠️ Pending':ev.finished?'✅ Resolving...':ev.isLive?'🔴 LIVE':'⏳ Waiting for match to start';
     return `<div class="abt">
       <div class="abt-ev">${bet.evNm.substring(0,36)}</div>
       <div class="abt-sel">${bet.sel.substring(0,40)}</div>
+      <div style="font-size:9px;margin:3px 0;color:var(--txt3)">${statusLabel}</div>
       <div class="abt-row">
         <div><div class="abt-od">${bet.odds}x · Staked ${fmtD(bet.stake)}</div><div style="font-size:9px;color:var(--txt3)">To return: ${fmtD(bet.stake*bet.odds)}</div></div>
-        <button class="abt-co" onclick="cashOutBet(${i})">CASH OUT<br><small>${fmtD(coVal)}</small></button>
+        ${!ev||!ev.finished?`<button class="abt-co" onclick="cashOutBet(${i})">CASH OUT<br><small>${fmtD(coVal)}</small></button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -86,6 +90,18 @@ function placeBet(){
   if(!stk||stk<=0){notify('Invalid stake','Enter an amount','lose');return;}
   if(stk>G.bal){notify('Insufficient funds','Visit Bank for a virtual loan','lose');return;}
   if(!G.slip.length){notify('Empty slip','Add selections first','lose');return;}
+
+  // Check that all selected events are actually live or at least started
+  const allSports=Object.values(G.evts).flat();
+  const notStarted=G.slip.filter(s=>{
+    const ev=allSports.find(e=>e.id===s.eid);
+    return !ev||(!ev.isLive&&!ev.finished);
+  });
+  if(notStarted.length){
+    notify('Match not started','Press ▶ Start All first, then place your bet','lose');
+    return;
+  }
+
   G.bal-=stk;
   const slip=[...G.slip],mode=G.mode;
   const allIn=stk===G.bal+stk;
@@ -93,30 +109,43 @@ function placeBet(){
   if(mode==='acca'||slip.length===1){
     const totOdds=slip.reduce((a,s)=>a*s.odds,1);
     const betId='bet_'+Date.now();
-    const betRecord={id:betId,evNm:slip[0].evNm,sel:slip.map(s=>s.sel).join(' + '),stake:stk,odds:parseFloat(totOdds.toFixed(2)),sport:slip[0].sport,legs:slip.length};
+    const betRecord={id:betId,eid:slip[0].eid,evNm:slip[0].evNm,sel:slip.map(s=>s.sel).join(' + '),stake:stk,odds:parseFloat(totOdds.toFixed(2)),sport:slip[0].sport,legs:slip.length};
     G.activeBets.push(betRecord);
-    simBet(slip,stk,totOdds,betId,allIn,slip.length);
+    betRecord.intervalId=simBet(slip,stk,totOdds,betId,allIn,slip.length);
   } else {
     const s1=stk/slip.length;
     slip.forEach(s=>{
       const betId='bet_'+Date.now()+'_'+Math.random();
-      G.activeBets.push({id:betId,evNm:s.evNm,sel:s.sel,stake:s1,odds:s.odds,sport:s.sport,legs:1});
-      simBet([s],s1,s.odds,betId,false,1);
+      const betRecord={id:betId,eid:s.eid,evNm:s.evNm,sel:s.sel,stake:s1,odds:s.odds,sport:s.sport,legs:1};
+      G.activeBets.push(betRecord);
+      betRecord.intervalId=simBet([s],s1,s.odds,betId,false,1);
     });
   }
 }
+
 function simBet(sels,stk,o,betId,allIn,legs){
-  const win=Math.random()<Math.min(.9,1/o*.92);
-  const pay=win?stk*o:0;
-  setTimeout(()=>{
-    // Remove from active bets
+  // Poll every 1.5s until the event this bet is on has finished
+  const intervalId=setInterval(()=>{
+    const allSports=Object.values(G.evts).flat();
+    const allDone=sels.every(s=>{
+      const ev=allSports.find(e=>e.id===s.eid);
+      return ev&&(ev.finished===true||(ev.startTime==='FT'&&!ev.isLive));
+    });
+    if(!allDone)return;
+    clearInterval(intervalId);
+    // Update the stored intervalId so cashout knows it's done
+    const betRec=G.activeBets.find(b=>b.id===betId);
+    if(betRec)betRec.intervalId=null;
+    const win=Math.random()<Math.min(.9,1/o*.92);
+    const pay=win?stk*o:0;
     G.activeBets=G.activeBets.filter(b=>b.id!==betId);
     if(win){G.bal+=pay;G.wins++;}else G.losses++;
     notify(win?'🎉 BET WON!':'Bet Lost',(win?'+':'-')+fmtD(win?pay:stk)+' · '+sels.map(s=>s.sel.substring(0,20)).join(' + '),win?'win':'lose');
     G.hist.unshift({sport:sels[0].sport,match:sels.map(s=>s.evNm).join(' / '),sel:sels.map(s=>s.sel).join(' + '),stake:stk,odds:o,payout:pay,result:win?'win':'lose',time:new Date().toLocaleTimeString(),allIn,legs});
     updateUI();renderHistory();checkBadges();
     if(G.mode==='active')showActiveBets();
-  },ri(1200,3200));
+  },1500);
+  return intervalId;
 }
 
 function claimDaily(){
@@ -127,7 +156,6 @@ function claimDaily(){
 
 // ==================== BADGES ====================
 function checkBadges(){
-  // Re-render profile if on profile tab
   if(G.tab==='profile')renderProfile();
 }
 

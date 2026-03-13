@@ -3,7 +3,7 @@ function tog(eid,evNm,sel,o,sp,mkt){
   const idx=G.slip.findIndex(s=>s.eid===eid&&s.mkt===mkt);
   if(idx>=0)G.slip.splice(idx,1);
   else G.slip.push({eid,evNm,sel,odds:o,sport:sp,mkt});
-  renderSlip();renderEvents();
+  renderSlip();renderEvents();updateSlipCount()
 }
 function clearSlip(){G.slip=[];G.stake=0;renderSlip();renderEvents();}
 function goSlipMode(m,btn){G.mode=m;document.querySelectorAll('.slbt').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderSlip();}

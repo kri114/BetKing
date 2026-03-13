@@ -27,7 +27,6 @@ function initVP(ev){
   } else if(ev.sport==='tennis'){
     vP=[{x:.25,y:.5,tx:.25,ty:.5,c:'#4FC3F7',name:ev.p1.split(' ').pop()},{x:.75,y:.5,tx:.75,ty:.5,c:'#EF9A9A',name:ev.p2.split(' ').pop()}];
   } else if(ev.sport==='cricket'){
-    // bat side 3 players, field side 5
     vP=[
       {x:.3,y:.45,tx:.3,ty:.45,c:'#FFA726',name:'Bat',team:0},{x:.3,y:.55,tx:.3,ty:.55,c:'#FFA726',name:'Non-str',team:0},
       {x:.6,y:.5,tx:.6,ty:.5,c:'#CE93D8',name:'Bowl',team:1},{x:.55,y:.35,tx:.55,ty:.35,c:'#CE93D8',name:'Slip',team:1},
@@ -35,10 +34,9 @@ function initVP(ev){
       {x:.8,y:.6,tx:.8,ty:.6,c:'#CE93D8',name:'Mid-off',team:1}
     ];
   } else if(ev.sport==='f1'){
-    // F1 cars placed around the track ellipse at starting positions
     vP=(ev.drivers||[]).slice(0,10).map((d,i)=>{
       const angle=(i/10)*Math.PI*2 - Math.PI/2;
-      const rx=0.38, ry=0.36, cx=0.5, cy=0.5;
+      const rx=0.38,ry=0.36,cx=0.5,cy=0.5;
       const x=cx+Math.cos(angle)*rx;
       const y=cy+Math.sin(angle)*ry;
       const tc=F1_TEAM_COLORS_V[d.team]||'#888';
@@ -100,7 +98,6 @@ function tickV(ev){
       const speed=rnd(0.8,1.4)*(1-i*0.012);
       rProg[ev.id][i]=Math.min(100,(rProg[ev.id][i]||0)+speed);
     });
-    // Occasional overtake
     if(Math.random()<.06){
       const sorted=[...rProg[ev.id].keys()].sort((a,b)=>rProg[ev.id][b]-rProg[ev.id][a]);
       const p=ri(0,5),pos=sorted[p],posNext=sorted[p+1];
@@ -138,8 +135,7 @@ function tickV(ev){
     }
   }
   drawFrame(ev);
-  // Check if this sport's round is over
-  if(typeof checkRoundEnd === 'function') checkRoundEnd(ev.sport);
+  if(typeof checkRoundEnd==='function')checkRoundEnd(ev.sport);
 }
 
 function drawSprite(ctx,px,py,kitColor,name,num){
@@ -245,25 +241,16 @@ function drawRaceTrack(cv,ev){
 
 function drawF1Track(cv,ev){
   const W=cv.width,H=cv.height,ctx=cv.getContext('2d');
-  // Background - dark tarmac
   ctx.fillStyle='#0d0d0d';ctx.fillRect(0,0,W,H);
-  // Draw simplified oval track
   const cx=W/2,cy=H/2,rx=W*.38,ry=H*.36;
-  // Track shadow
   ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=28;ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);ctx.stroke();
-  // Track surface
   ctx.strokeStyle='#2a2a2a';ctx.lineWidth=22;ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);ctx.stroke();
-  // White lines
   ctx.strokeStyle='rgba(255,255,255,.25)';ctx.lineWidth=1;ctx.setLineDash([8,8]);
   ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
-  // Start/finish line
   ctx.fillStyle='#fff';ctx.fillRect(cx+rx-14,cy-12,4,24);
   ctx.fillStyle='#E10600';ctx.fillRect(cx+rx-10,cy-12,4,24);
-
   if(!rProg[ev.id])rProg[ev.id]=ev.drivers.map((_,i)=>i*2.5);
   const sorted=[...rProg[ev.id].keys()].sort((a,b)=>rProg[ev.id][b]-rProg[ev.id][a]);
-
-  // Draw cars along ellipse path
   ev.drivers.forEach((d,i)=>{
     const progress=(rProg[ev.id][i]||0)/100;
     const angle=progress*Math.PI*2 - Math.PI/2;
@@ -271,25 +258,20 @@ function drawF1Track(cv,ev){
     const py=cy+Math.sin(angle)*ry;
     const tc=F1_TEAM_COLORS_V[d.team]||'#888';
     const rank=sorted.indexOf(i)+1;
-    // car body
     ctx.save();ctx.translate(px,py);
     const nextAngle=angle+0.05;
     const tx=cx+Math.cos(nextAngle)*rx,ty=cy+Math.sin(nextAngle)*ry;
     ctx.rotate(Math.atan2(ty-py,tx-px));
     ctx.fillStyle=tc;ctx.fillRect(-8,-3,16,6);
     ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(-2,-2,5,4);
-    // wheels
     ctx.fillStyle='#111';ctx.fillRect(-9,-5,3,3);ctx.fillRect(6,-5,3,3);ctx.fillRect(-9,2,3,3);ctx.fillRect(6,2,3,3);
     ctx.restore();
-    // position label
     if(rank<=5){
       ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(px-12,py-20,24,13);
       ctx.fillStyle=rank===1?'#FFD700':'#fff';ctx.font='bold 8px Rajdhani';ctx.textAlign='center';
       ctx.fillText('P'+rank+' '+d.n.split(' ').pop().substring(0,5),px,py-10);
     }
   });
-
-  // Lap counter
   ctx.fillStyle='rgba(0,0,0,.8)';ctx.fillRect(0,0,W,18);
   ctx.fillStyle='#E10600';ctx.font='bold 11px Rajdhani';ctx.textAlign='left';ctx.fillText('🏎️ F1 LIVE',6,13);
   ctx.fillStyle='#F0B429';ctx.textAlign='center';ctx.fillText('LAP '+ev.lap+'/'+ev.totalLaps,W/2,13);
@@ -298,16 +280,12 @@ function drawF1Track(cv,ev){
 
 function drawTennisCourt(cv,ev){
   const W=cv.width,H=cv.height,ctx=cv.getContext('2d');
-  // Hard court surface
   ctx.fillStyle='#2565a3';ctx.fillRect(0,0,W,H);
-  // Court lines
   ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=2;
   const mx=W*.12,my=H*.1,cw=W*.76,ch=H*.8;
   ctx.strokeRect(mx,my,cw,ch);
-  // Net
   ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=3;
   ctx.beginPath();ctx.moveTo(mx,H/2);ctx.lineTo(mx+cw,H/2);ctx.stroke();
-  // Service boxes
   ctx.lineWidth=1.5;ctx.strokeStyle='rgba(255,255,255,.6)';
   ctx.beginPath();ctx.moveTo(W/2,my);ctx.lineTo(W/2,H/2);ctx.stroke();
   ctx.beginPath();ctx.moveTo(W/2,H/2);ctx.lineTo(W/2,my+ch);ctx.stroke();
@@ -315,7 +293,6 @@ function drawTennisCourt(cv,ev){
   ctx.beginPath();ctx.moveTo(mx,sy);ctx.lineTo(mx+cw,sy);ctx.stroke();
   const sy2=my+ch*.75;
   ctx.beginPath();ctx.moveTo(mx,sy2);ctx.lineTo(mx+cw,sy2);ctx.stroke();
-  // Players
   vP.forEach((p,i)=>{
     const px=p.x*W,py=p.y*H;
     ctx.fillStyle='rgba(0,0,0,.3)';ctx.beginPath();ctx.ellipse(px,py+8,5,2,0,0,Math.PI*2);ctx.fill();
@@ -325,10 +302,8 @@ function drawTennisCourt(cv,ev){
     ctx.fillStyle='#fff';ctx.font='bold 8px Rajdhani';ctx.textAlign='center';
     ctx.fillText(p.name.substring(0,10),px,py+20);
   });
-  // Ball
   ctx.fillStyle='#ccff00';ctx.beginPath();ctx.arc(vBall.x*W,vBall.y*H,5,0,Math.PI*2);ctx.fill();
   ctx.strokeStyle='rgba(0,0,0,.4)';ctx.lineWidth=1;ctx.stroke();
-  // Scoreboard
   ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(0,0,W,20);
   ctx.fillStyle='#4FC3F7';ctx.font='bold 10px Rajdhani';ctx.textAlign='left';ctx.fillText(ev.p1.split(' ').pop(),6,14);
   ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(`${ev.p1Sets||0} – ${ev.p2Sets||0}  Sets`,W/2,14);
@@ -337,25 +312,19 @@ function drawTennisCourt(cv,ev){
 
 function drawCricketPitch(cv,ev){
   const W=cv.width,H=cv.height,ctx=cv.getContext('2d');
-  // Outfield
   ctx.fillStyle='#2d7a2d';ctx.fillRect(0,0,W,H);
-  // Oval boundary
   ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=2;
   ctx.beginPath();ctx.ellipse(W/2,H/2,W*.44,H*.44,0,0,Math.PI*2);ctx.stroke();
-  // Pitch strip (centre)
   const px=W/2-18,py=H/2-60,pw=36,ph=120;
   ctx.fillStyle='#c8a865';ctx.fillRect(px,py,pw,ph);
   ctx.strokeStyle='rgba(255,255,255,.6)';ctx.lineWidth=1.5;
   ctx.strokeRect(px,py,pw,ph);
-  // Crease lines
   ctx.beginPath();ctx.moveTo(px-8,py+20);ctx.lineTo(px+pw+8,py+20);ctx.stroke();
   ctx.beginPath();ctx.moveTo(px-8,py+ph-20);ctx.lineTo(px+pw+8,py+ph-20);ctx.stroke();
-  // Stumps
   [-6,0,6].forEach(ox=>{
     ctx.fillStyle='#fff';ctx.fillRect(W/2+ox-1,py+10,2,10);
     ctx.fillRect(W/2+ox-1,py+ph-20,2,10);
   });
-  // Players
   vP.forEach(p=>{
     const ppx=p.x*W,ppy=p.y*H;
     ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(ppx,ppy+7,4,2,0,0,Math.PI*2);ctx.fill();
@@ -364,10 +333,8 @@ function drawCricketPitch(cv,ev){
     ctx.fillStyle='rgba(0,0,0,.65)';ctx.fillRect(ppx-14,ppy+8,28,10);
     ctx.fillStyle='#fff';ctx.font='6px DM Sans';ctx.textAlign='center';ctx.fillText((p.name||'').substring(0,8),ppx,ppy+16);
   });
-  // Ball
   ctx.fillStyle='#cc2200';ctx.beginPath();ctx.arc(vBall.x*W,vBall.y*H,4,0,Math.PI*2);ctx.fill();
   ctx.strokeStyle='#880000';ctx.lineWidth=1;ctx.stroke();
-  // Score overlay
   ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(0,0,W,20);
   ctx.fillStyle='#FFA726';ctx.font='bold 10px Rajdhani';ctx.textAlign='left';
   ctx.fillText(`${ev.home}: ${ev.hRuns||0}/${ev.hWkts||0}`,6,14);
@@ -409,7 +376,8 @@ function drawFrame(ev){
 
 function openViewer(eid,e){
   if(e)e.stopPropagation();
-  const all=[...G.evts.football,...G.evts.basketball,...G.evts.horses,...G.evts.dogs,...G.evts.mma,...(G.evts.f1||[]),...(G.evts.tennis||[]),...(G.evts.cricket||[])];
+  // F1 first to avoid ID conflicts with football (both use f1_ prefix)
+  const all=[...(G.evts.f1||[]),...G.evts.football,...G.evts.basketball,...G.evts.horses,...G.evts.dogs,...G.evts.mma,...(G.evts.tennis||[]),...(G.evts.cricket||[])];
   const ev=all.find(x=>x.id===eid);if(!ev)return;
   vSt={shots:[0,0],fouls:[0,0],corners:[0,0],poss:[50,50]};cLog=[];
   initVP(ev);

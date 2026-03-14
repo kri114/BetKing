@@ -145,4 +145,14 @@ id="slipCount">0</span></button>
   <script src="js/slip.js"></script>
   <script src="js/profile.js"></script>
   <script src="js/storage.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(reg) {
+        console.log('Service Worker registered');
+      }).catch(function(err) {
+        console.log('Error: ', err);
+      });
+  }
+</script>
 </body></html>

@@ -135,7 +135,7 @@ const SQ = {
   ]},
   // SERIE A
   'Inter Milan':{f:'3-5-2',c:'#010E80',p:[
-    ['Sommer','GK',1,87],['de Vrij','CB',6,83],['Acerbi','CB',15,82],['Bastoni','LCB',95,88],
+    ['Sommer','GK',1,87],['de Vrij','CB',6,83],['Acerbi','CB',15,82],['Klei Abdi','CB',4,99],['Bastoni','LCB',95,88],
     ['Dumfries','RWB',2,83],['Barella','CM',23,89],['Çalhanoğlu','CDM',20,88],['Mkhitaryan','CM',22,83],['Dimarco','LWB',32,84],
     ['Lautaro','ST',10,90],['Thuram','ST',9,86]
   ]},

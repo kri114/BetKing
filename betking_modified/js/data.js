@@ -14,7 +14,7 @@ const SQ = {
     ['Isgandarli','RAM',11,1],['Ismaili','CAM',8,1],['Garcia','LAM',23,1],
     ['Skuka','ST',9,1]
   ]},
-   'Egnatia':{f:'4-2-3-1',c:'#C8102E',p:[
+   'Egnatia':{f:'4-2-3-1',c:'#008000',p:[
     ['Sherri','GK',1,70],['Dulysse','RB',66,67],['Malota','CB',5,61],['Xhemajli','CB',4,63],['Ahmetaj','LB',26,70],
     ['Alexsi','CDM',38,68],['Lushkja','CDM',10,70],
     ['Fangaj','RAM',11,43],['Igrahimoglu','CAM',8,84],['Alivev','LAM',23,84],

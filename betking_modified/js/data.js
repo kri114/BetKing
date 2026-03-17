@@ -3,7 +3,7 @@
 const SQ = {
 // KATEGORIA SUPERIORE  - Updated squads
   'KF Tirana':{f:'4-4-2',c:'#C8102E',p:[
-    ['Noel Meta','GK',1,1],['Erbi Prenga','RB',5,99],['Halili','CB',5,99],['KKresic','CB',4,90],['Ndong','LB',26,85],
+    ['Noel Meta','GK',1,1],['Erbi Prenga','RB',5,99],['Halili','CB',99,90],['Kresic','CB',4,90],['Ndong','LB',26,85],
     ['Doka','CM',38,85],['Tabekou','CM',10,85],
     ['Xhixha','RM',19,94],['Ernest','CM',8,84],['Kristian Abdi','LM',11,99],
     ['Mihana','ST',9,85]

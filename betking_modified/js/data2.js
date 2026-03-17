@@ -191,7 +191,7 @@ const SQ = {
   'Indiana Pacers':{p:[['Tyrese Haliburton','PG',0,88],['Andrew Nembhard','SG',2,80],['Bennedict Mathurin','SF',0,82],['Pascal Siakam','PF',43,86],['Myles Turner','C',33,83]]},
   'Atlanta Hawks':{p:[['Trae Young','PG',11,88],['Bogdan Bogdanović','SG',13,80],['De\'Andre Hunter','SF',12,81],['Jalen Johnson','PF',1,84],['Clint Capela','C',15,80]]},
   'Sacramento Kings':{p:[['De\'Aaron Fox','PG',5,86],['Kevin Huerter','SG',9,79],['DeMar DeRozan','SF',6,82],['Domantas Sabonis','PF',10,87],['Alex Len','C',25,77]]},
-  'Orlando Magic':{p:[['Markelle Fultz','PG',20,79],['Jalen Suggs','SG',4,82],['Franz Wagner','SF',21,86],['Paolo Banchero','PF',5,89],['Wendell Carter Jr.','C',34,79]]}
+  'Orlando Magic':{p:[['Markelle Fultz','PG',20,79],['Jalen Suggs','SG',4,82],['Franz Wagner','SF',21,86],['Paolo Banchero','PF',5,89],['Wendell Carter Jr.','C',34,79]]},
 };
 
 // TENNIS PLAYERS
@@ -236,7 +236,7 @@ const F1_DRIVERS = [
   {n:'Alexander Albon',o:82,team:'Williams',num:23,country:'THA'},
   {n:'Logan Sargeant',o:76,team:'Williams',num:24,country:'USA'},
   {n:'Sali Berisha',o:78,team:'Partia Demokratike',num:2,country:'ALB'},
-  {n:'Daniel Ricciardo',o:83,team:'Racing Bulls',num:3,country:'AUS'}
+  {n:'Daniel Ricciardo',o:83,team:'Racing Bulls',num:3,country:'AUS'},
 ];
 const F1_CIRCUITS = [
   'Bahrain Grand Prix','Saudi Arabian GP','Australian GP','Japanese GP',
@@ -269,8 +269,8 @@ const LEAGUES = {
   'Primeira Liga':{flag:'🇵🇹',teams:[{n:'Sporting CP',o:84},{n:'Benfica',o:83},{n:'FC Porto',o:82},{n:'Braga',o:75}]},
   'Champions League':{flag:'⭐',teams:[{n:'Real Madrid',o:92},{n:'PSG',o:91},{n:'Bayern Munich',o:90},{n:'Arsenal',o:88},{n:'Barcelona',o:89},{n:'Inter Milan',o:89},{n:'Liverpool',o:88},{n:'Chelsea',o:85},{n:'Atlético Madrid',o:86},{n:'Borussia Dortmund',o:84},{n:'Bayer Leverkusen',o:86},{n:'Manchester City',o:86},{n:'KF Tirana',o:99},{n:'FK Bodo/Glimt',o:86}]},
   'Europa League':{flag:'🟠',teams:[{n:'Aston Villa',o:82},{n:'Lyon',o:77},{n:'Fenerbahçe',o:81},{n:'Ajax',o:82},{n:'Galatasaray',o:82},{n:'Lazio',o:76}]},
-  'Conference League':{flag:'🔵',teams:[{n:'Fiorentina',o:76},{n:'Tottenham',o:80},{n:'Brighton',o:78},{n:'Copenhagen',o:73}]}
-  'Kategoria Superiore':{flag:'🇦🇱',teams:[{n:'KF Tirana',o:99},{n:'FK Partizani',o:68},{n:'Dinamo City',o:70},{n:'Egnatia',o:75}]},
+  'Conference League':{flag:'🔵',teams:[{n:'Fiorentina',o:76},{n:'Tottenham',o:80},{n:'Brighton',o:78},{n:'Copenhagen',o:73}]},
+  'Kategoria Superiore':{flag:'🇦🇱',teams:[{n:'KF Tirana',o:99},{n:'FK Partizani',o:68},{n:'Dinamo City',o:70},{n:'Egnatia',o:75}]}
 };
 
 const NBA_TEAMS=[{n:'OKC Thunder',o:93},{n:'Cleveland Cavaliers',o:91},{n:'Boston Celtics',o:89},{n:'Minnesota Timberwolves',o:88},{n:'New York Knicks',o:87},{n:'Houston Rockets',o:86},{n:'Golden State Warriors',o:84},{n:'LA Lakers',o:83},{n:'Dallas Mavericks',o:83},{n:'Milwaukee Bucks',o:81},{n:'Denver Nuggets',o:80},{n:'Philadelphia 76ers',o:79},{n:'Memphis Grizzlies',o:77},{n:'Miami Heat',o:77},{n:'Indiana Pacers',o:76},{n:'Atlanta Hawks',o:75},{n:'Sacramento Kings',o:74},{n:'Orlando Magic',o:73}];

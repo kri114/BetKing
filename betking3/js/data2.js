@@ -288,7 +288,6 @@ const AV_EMOJIS = ['🦁','🐺','🦊','🐯','🦅','🐲','🦄','🦝','🐻
 const AV_COLORS = ['#E53935','#7B1FA2','#1565C0','#00695C','#E65100','#AD1457','#4527A0','#00838F','#558B2F','#D84315','#F0B429','#1A90F0'];
 
 const OLYMPIC_RUNNERS = [
-  'Marcus Webb', 'Kofi Asante', 'Diego Reyes', 'Luca Ferretti', 'Yusuf Osei', 'Tariq Nkosi',
-  'James Okafor', 'Emil Hartmann', 'Nico Strauss', 'Remi Bouchard', 'Sven Olofsson', 'Andre Moreira'
+  'Erbi', 'Kristian', 'Arens', 'Ruben', 'Noel', 'Ersind'
 ];
-const OLYMPIC_EVENTS = ['100m Sprint', '200m Dash', '400m Final', '110m Hurdles', '4x100m Relay', '800m Final'];
+const OLYMPIC_EVENTS = ['ME GEJ', 'ME KAR', 'ME BYTHQIR', 'DO HAJ HELIKOPTER'];

@@ -124,7 +124,6 @@ setInterval(() => {
           } else if ((ev.p2Games || 0) >= 6 && (ev.p2Games || 0) - (ev.p1Games || 0) >= 2) {
             ev.p2Sets = (ev.p2Sets || 0) + 1; ev.p1Games = 0; ev.p2Games = 0;
           }
-        }
       } else if (sport === 'cricket') {
         if (Math.random() < 0.08) {
           ev.hRuns = (ev.hRuns || 0) + pick([0, 1, 1, 2, 4, 6]);

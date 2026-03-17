@@ -3,7 +3,6 @@ let vInt=null,vSt={shots:[0,0],fouls:[0,0],corners:[0,0],poss:[50,50]};
 let cLog=[],rProg={};
 let vP=[],vBall={x:.5,y:.5},goalFlash=false,goalT=null;
 
-// F1 team colours (also in render.js — kept in sync)
 const F1_TEAM_COLORS_V={'Red Bull':'#1E41FF','McLaren':'#FF8000','Ferrari':'#E8002D','Mercedes':'#27F4D2','Aston Martin':'#229971','Alpine':'#0093CC','Williams':'#64C4FF','Racing Bulls':'#6692FF','Haas':'#B6BABD','Sauber':'#52E252'};
 
 const FCOMM=['Salah with the run — cross comes in!','Van Dijk clears his lines','Bellingham drops deep','Mbappé leaves the defender!','Vinicius — goal attempt wide!','Kane heads over from the corner','Free kick — wall forms','Keeper comes for the cross','VAR reviewing for offside','Shot saved — corner kick!','Penalty appeal — waved away!','Great skill through midfield','Pick-pocket tackle wins possession back'];
@@ -60,11 +59,13 @@ function tickV(ev){
     if(Math.random()<.04){
       const sc=Math.random()<(ev.homeOvr/(ev.homeOvr+ev.awayOvr))?.6:.4?0:1;
       if(sc===0)ev.hScore++;else ev.aScore++;
-      goalFlash=true;if(goalT)clearTimeout(goalT);goalT=setTimeout(()=>goalFlash=false,1500);
+      goalFlash=true;if(goalT)clearTimeout(goalT);goalT=setTimeout(()=>{goalFlash=false;},1500);
       const scorers=vP.filter(p=>p.team===sc&&p.pos!=='GK');
       const scorer=pick(scorers.length?scorers:vP.filter(p=>p.team===sc));
       addC(ev.minute,`⚽ GOAL! ${scorer.name} scores for ${sc===0?ev.home:ev.away}!`);
-      vBall.x=sc===0?.93:.07;vBall.y=.5;
+      // Ball flies into the goal then resets to center for kickoff
+      vBall.x=sc===0?0.02:0.98; vBall.y=0.5;
+      setTimeout(()=>{ vBall.x=0.5; vBall.y=0.5; },1500);
     }
     if(Math.random()<.07)vSt.shots[ri(0,1)]++;
     if(Math.random()<.05)vSt.fouls[ri(0,1)]++;
@@ -119,7 +120,6 @@ function tickV(ev){
     vBall.y+=(vP[ri(0,1)].y+(Math.random()-.5)*.1-vBall.y)*.4;
     if(Math.random()<.06){
       if(Math.random()<.5)ev.p1Games=(ev.p1Games||0)+1; else ev.p2Games=(ev.p2Games||0)+1;
-      // Advance sets when a player reaches 6 games (simplified)
       if((ev.p1Games||0)>=6&&(ev.p1Games||0)-(ev.p2Games||0)>=2){
         ev.p1Sets=(ev.p1Sets||0)+1;ev.p1Games=0;ev.p2Games=0;
         addC('Set '+(ev.p1Sets+ev.p2Sets),ev.p1.split(' ').pop()+' wins the set!');
@@ -337,7 +337,7 @@ function drawCricketPitch(cv,ev){
     const ppx=p.x*W,ppy=p.y*H;
     ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(ppx,ppy+7,4,2,0,0,Math.PI*2);ctx.fill();
     ctx.fillStyle=p.c||'#FFA726';ctx.fillRect(ppx-5,ppy-2,10,9);
-    ctx.fillStyle='#F5CBA7';ctx.beginPath();ctx.arc(ppx,ppy-8,4,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#F5CBA7';ctx.beginPath();ctx.arc(ppx,ppx-8,4,0,Math.PI*2);ctx.fill();
     ctx.fillStyle='rgba(0,0,0,.65)';ctx.fillRect(ppx-14,ppy+8,28,10);
     ctx.fillStyle='#fff';ctx.font='6px DM Sans';ctx.textAlign='center';ctx.fillText((p.name||'').substring(0,8),ppx,ppy+16);
   });
@@ -384,10 +384,16 @@ function drawFrame(ev){
 
 function openViewer(eid,e){
   if(e)e.stopPropagation();
-  // F1 first to avoid ID conflicts with football (both use f1_ prefix)
   const all=[...(G.evts.f1||[]),...G.evts.football,...G.evts.basketball,...G.evts.horses,...G.evts.dogs,...G.evts.mma,...(G.evts.tennis||[]),...(G.evts.cricket||[])];
   const ev=all.find(x=>x.id===eid);if(!ev)return;
-  vSt={shots:[0,0],fouls:[0,0],corners:[0,0],poss:[50,50]};cLog=[];
+  // Load background-tracked stats if available, otherwise start fresh
+  vSt={
+    shots:  [ev.hShots||0,   ev.aShots||0],
+    fouls:  [ev.hFouls||0,   ev.aFouls||0],
+    corners:[ev.hCorners||0, ev.aCorners||0],
+    poss:   [ev.hPoss||50,   ev.aPoss||50]
+  };
+  cLog=[];
   initVP(ev);
   const sp=ev.sport;
   const isTeam=sp==='football'||sp==='basketball';

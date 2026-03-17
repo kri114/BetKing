@@ -5,7 +5,7 @@ let vP=[],vBall={x:.5,y:.5},goalFlash=false,goalT=null;
 
 const F1_TEAM_COLORS_V={'Red Bull':'#1E41FF','McLaren':'#FF8000','Ferrari':'#E8002D','Mercedes':'#27F4D2','Aston Martin':'#229971','Alpine':'#0093CC','Williams':'#64C4FF','Racing Bulls':'#6692FF','Haas':'#B6BABD','Sauber':'#52E252'};
 
-const FCOMM=['Salah with the run — cross comes in!','Van Dijk clears his lines','Bellingham drops deep','Mbappé leaves the defender!','Vinicius — goal attempt wide!','Kane heads over from the corner','Free kick — wall forms','Keeper comes for the cross','VAR reviewing for offside','Shot saved — corner kick!','Penalty appeal — waved away!','Great skill through midfield','Pick-pocket tackle wins possession back'];
+const FCOMM=['with the run — cross comes in!','clears his lines','drops deep','leaves the defender!','— goal attempt wide!','heads over from the corner','Free kick — wall forms','Keeper comes for the cross','VAR reviewing for offside','Shot saved — corner kick!','Penalty appeal — waved away!','Great skill through midfield','Pick-pocket tackle wins possession back'];
 const BCOMM=['SGA to the rim — and-one!','Curry hits from the logo!','Dončić — step-back three!','LeBron with the alley-oop!','Jokić finds the open man!','Edwards hammers the dunk!','Tatum — mid-range is good!'];
 const RCOMM=['Leader pulling away!','Jostling on the inside rail','Dark horse making a move!','Tight finish developing','Final furlong — all out!','Favourite in trouble!'];
 const MCOMM=['Jab lands clean!','Takedown stuffed!','Body shot hurts!','Clinch — knee to body','Head kick attempt!','Ground and pound!','Choke attempt!','Counter right hook!'];

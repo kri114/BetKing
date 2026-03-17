@@ -6,7 +6,7 @@ const SQ = {
     ['Alisson','GK',1,90],['Alexander-Arnold','RB',66,88],['Konaté','CB',5,86],['Van Dijk','CB',4,90],['Robertson','LB',26,85],
     ['Gravenberch','CDM',38,85],['Mac Allister','CDM',10,85],
     ['Salah','RAM',11,94],['Szoboszlai','CAM',8,84],['Díaz','LAM',23,84],
-    ['Núñez','ST',9,85]
+    ['Ekitike','ST',9,85]
   ]},
   'Arsenal':{f:'4-3-3',c:'#EF0107',p:[
     ['Raya','GK',22,87],['Timber','RB',12,84],['Saliba','CB',12,90],['Gabriel','CB',6,87],['Zinchenko','LB',35,81],
@@ -14,7 +14,7 @@ const SQ = {
     ['Saka','RW',7,92],['Trossard','CF',19,83],['Martinelli','LW',11,85]
   ]},
   'Manchester City':{f:'4-3-3',c:'#6CABDD',p:[
-    ['Ederson','GK',31,88],['Walker','RB',2,82],['Rúben Dias','CB',3,88],['Akanji','CB',25,85],['Gvardiol','LB',24,86],
+    ['Ederson','GK',31,88],['Orily','RB',2,82],['Rúben Dias','CB',3,88],['Khusanov','CB',25,85],['Gvardiol','LB',24,86],
     ['Rodri','CDM',16,93],['De Bruyne','CM',17,90],['Bernardo Silva','CM',20,88],
     ['Savinho','RW',26,83],['Haaland','ST',9,95],['Doku','LW',11,85]
   ]},
@@ -60,7 +60,7 @@ const SQ = {
   ]},
   // LA LIGA
   'Real Madrid':{f:'4-3-3',c:'#FEBE10',p:[
-    ['Courtois','GK',1,90],['Carvajal','RB',2,85],['Militão','CB',3,87],['Rüdiger','CB',22,85],['Mendy','LB',23,84],
+    ['Meta','GK',1,1],['Carvajal','RB',2,85],['Militão','CB',3,87],['Rüdiger','CB',22,85],['Mendy','LB',23,84],
     ['Camavinga','CDM',12,85],['Tchouaméni','CM',18,85],['Valverde','CM',15,89],
     ['Bellingham','AM',5,93],['Mbappé','ST',9,95],['Vinicius Jr','LW',7,93]
   ]},
@@ -250,7 +250,7 @@ const LEAGUES = {
 const NBA_TEAMS=[{n:'OKC Thunder',o:93},{n:'Cleveland Cavaliers',o:91},{n:'Boston Celtics',o:89},{n:'Minnesota Timberwolves',o:88},{n:'New York Knicks',o:87},{n:'Houston Rockets',o:86},{n:'Golden State Warriors',o:84},{n:'LA Lakers',o:83},{n:'Dallas Mavericks',o:83},{n:'Milwaukee Bucks',o:81},{n:'Denver Nuggets',o:80},{n:'Philadelphia 76ers',o:79},{n:'Memphis Grizzlies',o:77},{n:'Miami Heat',o:77},{n:'Indiana Pacers',o:76},{n:'Atlanta Hawks',o:75},{n:'Sacramento Kings',o:74},{n:'Orlando Magic',o:73}];
 const UFC=[{n:'Islam Makhachev',o:97,w:'Lightweight'},{n:'Jon Jones',o:96,w:'Heavyweight'},{n:'Alex Pereira',o:95,w:'Light HW'},{n:'Alexander Volkanovski',o:94,w:'Featherweight'},{n:'Ilia Topuria',o:93,w:'Featherweight'},{n:'Belal Muhammad',o:93,w:'Welterweight'},{n:'Charles Oliveira',o:92,w:'Lightweight'},{n:'Dricus du Plessis',o:92,w:'Middleweight'},{n:'Merab Dvalishvili',o:92,w:'Bantamweight'},{n:'Max Holloway',o:91,w:'Featherweight'},{n:'Arman Tsarukyan',o:91,w:'Lightweight'},{n:'Tom Aspinall',o:91,w:'Heavyweight'},{n:'Shavkat Rakhmonov',o:90,w:'Welterweight'},{n:'Magomed Ankalaev',o:90,w:'Light HW'},{n:'Justin Gaethje',o:89,w:'Lightweight'},{n:'Sean O\'Malley',o:89,w:'Bantamweight'},{n:'Bo Nickal',o:89,w:'Middleweight'},{n:'Conor McGregor',o:85,w:'Lightweight'},{n:'Dustin Poirier',o:87,w:'Lightweight'},{n:'Kamaru Usman',o:87,w:'Welterweight'}];
 const HORSES=['Frankel II','Enable\'s Pride','Sea The Stars Jr','Galileo\'s Dream','Golden Horn II','Hurricane Lane','Adayar','Mishriff','Love Story','Snowfall','Baaeed Jr','Desert Crown','Noble Truth','Cracksman Jr'];
-const DOGS=['Mick The Miller','Rapid Ranger','Westmead Hawk','Shakeys Jet','Murlens Radar','Spiral Nikita','Top Honcho','Some Picture','Droopys Verve','Trev\'s Missile'];
+const DOGS=['Pallavit','Grruni','Gatorade','Pavlovic butter','Marinari','Hamleti','Rruben karri','Bytha marseles','Elvis presli','600 spira'];
 const HRACE=['Grand National','Royal Ascot Gold Cup','Cheltenham Gold Cup','The Derby','King George VI Chase','Prix de l\'Arc'];
 const DRACE=['Sprint Final','Classic Chase','Open A Grade','Speed Trial','Gold Collar','Champion Stakes'];
 const MEVT=['UFC 327','UFC 328','UFC Fight Night London','Bellator 312','ONE Championship'];

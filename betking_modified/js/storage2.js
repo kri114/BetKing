@@ -136,7 +136,7 @@ setInterval(() => {
         rProg[ev.id].forEach((_, i) => {
           rProg[ev.id][i] = Math.min(100, (rProg[ev.id][i] || 0) + rnd(0.05, 0.15) * (1 - i * 0.012));
         });
-        const leader = [...(rProg[ev.id].keys())].sort((a, b) => rProg[ev.id][b] - rProg[ev.id][a])[0];
+     const leader = Array.from(rProg[ev.id].keys()).sort(function(a,b){return rProg[ev.id][b]-rProg[ev.id][a];})[0];
         if (ev.drivers && ev.drivers[leader]) ev.leader = ev.drivers[leader].n;
       }
       if (typeof checkRoundEnd === 'function') checkRoundEnd(sport);

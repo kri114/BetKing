@@ -1,7 +1,32 @@
 
 // ==================== UPDATED SQUADS 2024/25 ====================
 const SQ = {
-  // PREMIER LEAGUE - Updated squads
+// KATEGORIA SUPERIORE  - Updated squads
+  'KF Tirana':{f:'4-4-2',c:'#C8102E',p:[
+    ['Noel Meta','GK',1,1],['Erbi Prenga','RB',17,99],['Halili','CB',5,86],['KKresic','CB',4,90],['Ndong','LB',26,85],
+    ['Doka','CM',38,85],['Tabekou','CM',10,85],
+    ['Xhixha','RM',19,94],['Ernest','CM',8,84],['Kristian Abdi','LM',11,99],
+    ['Mihana','ST',9,85]
+  ]},
+   'FK Partizani':{f:'4-2-3-1',c:'#C8102E',p:[
+    ['Qirko','GK',1,50],['Martinez','RB',66,54],['Bytyci','CB',5,46],['Saliou','CB',4,40],['Buxhelaj','LB',26,51],
+    ['Mehmeti','CDM',38,1],['Kote','CDM',10,1],
+    ['Isgandarli','RAM',11,1],['Ismaili','CAM',8,1],['Garcia','LAM',23,1],
+    ['Skuka','ST',9,1]
+  ]},
+   'Egnatia':{f:'4-2-3-1',c:'#C8102E',p:[
+    ['Sherri','GK',1,70],['Dulysse','RB',66,67],['Malota','CB',5,61],['Xhemajli','CB',4,63],['Ahmetaj','LB',26,70],
+    ['Alexsi','CDM',38,68],['Lushkja','CDM',10,70],
+    ['Fangaj','RAM',11,43],['Igrahimoglu','CAM',8,84],['Alivev','LAM',23,84],
+    ['Joel','ST',9,85]
+  ]},
+   'Dinamo City':{f:'4-2-3-1',c:'#C8102E',p:[
+    ['Teqja','GK',1,77],['Neziri','RB',66,71],['Aliji','CB',5,49],['Teixeira','CB',4,66],['Vila','LB',26,76],
+    ['Meixi','CDM',38,67],['Nani','CDM',10,85],
+    ['Berisha','RAM',11,69],['Qefalija','CAM',8,72],['Bregu','LAM',23,60],
+    ['Guindo','ST',9,70]
+  ]},
+// PREMIER LEAGUE - Updated squads
   'Liverpool':{f:'4-2-3-1',c:'#C8102E',p:[
     ['Alisson','GK',1,90],['Alexander-Arnold','RB',66,88],['Konaté','CB',5,86],['Van Dijk','CB',4,90],['Robertson','LB',26,85],
     ['Gravenberch','CDM',38,85],['Mac Allister','CDM',10,85],
@@ -115,10 +140,10 @@ const SQ = {
     ['Lautaro','ST',10,90],['Thuram','ST',9,86]
   ]},
   'AC Milan':{f:'4-2-3-1',c:'#FB090B',p:[
-    ['Maignan','GK',16,89],['Calabria','RB',2,80],['Tomori','CB',23,84],['Pavlović','CB',28,82],['Theo Hernández','LB',19,87],
-    ['Fofana','CDM',29,83],['Reijnders','CDM',14,85],
-    ['Pulisic','CAM',11,85],['Chukwueze','RAM',21,82],['Leão','LAM',17,88],
-    ['Morata','ST',7,83]
+    ['Maignan','GK',16,89],['Salemankers','RB',2,80],['Tomori','CB',23,84],['Pavlović','CB',28,82],['Estupinian','LB',19,87],
+    ['Fofana','CDM',29,83],['Modric','CDM',14,85],
+    ['Pulisic','CAM',11,85],['Athekhame','RAM',21,82],['Leão','LAM',17,88],
+    ['Fullkrug','ST',7,83]
   ]},
   'Juventus':{f:'4-2-3-1',c:'#000000',p:[
     ['Di Gregorio','GK',1,84],['Cambiaso','RB',27,84],['Gatti','CB',4,82],['Kalulu','CB',15,83],['Cabal','LB',33,81],
@@ -127,9 +152,9 @@ const SQ = {
     ['Vlahović','ST',9,86]
   ]},
   'Napoli':{f:'4-3-3',c:'#087AC3',p:[
-    ['Meret','GK',1,83],['Di Lorenzo','RB',22,84],['Rrahmani','CB',13,82],['Buongiorno','CB',4,85],['Olivera','LB',17,81],
+    ['Milinkovic-Savic','GK',1,83],['Di Lorenzo','RB',22,84],['Rrahmani','CB',13,82],['Buongiorno','CB',4,85],['Olivera','LB',17,81],
     ['Anguissa','CDM',99,84],['Lobotka','CM',68,86],['Gilmour','CM',5,81],
-    ['Politano','RW',21,82],['Lukaku','ST',11,85],['Kvaratskhelia','LW',77,89]
+    ['Politano','RW',21,82],['Lukaku','ST',11,85],['Vergara','LW',77,89]
   ]},
   'Atalanta':{f:'3-4-2-1',c:'#1E90FF',p:[
     ['Carnesecchi','GK',29,83],['Djimsiti','CB',19,81],['Hien','CB',4,82],['Kolasinac','LCB',9,80],
@@ -139,7 +164,7 @@ const SQ = {
   ]},
   // LIGUE 1
   'PSG':{f:'4-3-3',c:'#004170',p:[
-    ['Donnarumma','GK',99,90],['Hakimi','RB',2,88],['Marquinhos','CB',5,88],['Pacho','CB',28,83],['Nuno Mendes','LB',25,86],
+    ['Safanov','GK',99,90],['Hakimi','RB',2,88],['Marquinhos','CB',5,88],['Pacho','CB',28,83],['Nuno Mendes','LB',25,86],
     ['Vitinha','CM',17,86],['João Neves','CDM',87,85],['Zaire-Emery','CM',33,85],
     ['Dembélé','RW',10,88],['Gonçalo Ramos','ST',9,84],['Barcola','LW',29,86]
   ]},
@@ -171,7 +196,7 @@ const SQ = {
 
 // TENNIS PLAYERS
 const TENNIS_PLAYERS = [
-  {n:'Jannik Sinner',o:95,rank:1,country:'ITA'},{n:'Carlos Alcaraz',o:94,rank:2,country:'ESP'},
+  {n:'Jannik Sinner',o:99,rank:1,country:'ITA'},{n:'Carlos Alcaraz',o:94,rank:2,country:'ESP'},
   {n:'Alexander Zverev',o:90,rank:3,country:'GER'},{n:'Daniil Medvedev',o:89,rank:4,country:'RUS'},
   {n:'Novak Djokovic',o:88,rank:5,country:'SRB'},{n:'Taylor Fritz',o:86,rank:7,country:'USA'},
   {n:'Casper Ruud',o:85,rank:8,country:'NOR'},{n:'Stefanos Tsitsipas',o:84,rank:9,country:'GRE'},
@@ -209,8 +234,8 @@ const F1_DRIVERS = [
   {n:'Yuki Tsunoda',o:82,team:'Racing Bulls',num:22,country:'JPN'},
   {n:'Kevin Magnussen',o:79,team:'Haas',num:20,country:'DEN'},
   {n:'Alexander Albon',o:82,team:'Williams',num:23,country:'THA'},
-  {n:'Logan Sargeant',o:76,team:'Williams',num:2,country:'USA'},
-  {n:'Guanyu Zhou',o:78,team:'Sauber',num:24,country:'CHN'},
+  {n:'Logan Sargeant',o:76,team:'Williams',num:24,country:'USA'},
+  {n:'Sali Berisha',o:78,team:'Partia Demokratike',num:2,country:'ALB'},
   {n:'Daniel Ricciardo',o:83,team:'Racing Bulls',num:3,country:'AUS'}
 ];
 const F1_CIRCUITS = [
@@ -242,9 +267,10 @@ const LEAGUES = {
   'Ligue 1':{flag:'🇫🇷',teams:[{n:'PSG',o:91},{n:'Monaco',o:81},{n:'Lyon',o:77},{n:'Marseille',o:76},{n:'Lille',o:76},{n:'Nice',o:74}]},
   'Eredivisie':{flag:'🇳🇱',teams:[{n:'Ajax',o:82},{n:'PSV Eindhoven',o:84},{n:'Feyenoord',o:81},{n:'AZ Alkmaar',o:76}]},
   'Primeira Liga':{flag:'🇵🇹',teams:[{n:'Sporting CP',o:84},{n:'Benfica',o:83},{n:'FC Porto',o:82},{n:'Braga',o:75}]},
-  'Champions League':{flag:'⭐',teams:[{n:'Real Madrid',o:92},{n:'PSG',o:91},{n:'Bayern Munich',o:90},{n:'Arsenal',o:88},{n:'Barcelona',o:89},{n:'Inter Milan',o:89},{n:'Liverpool',o:88},{n:'Chelsea',o:85},{n:'Atlético Madrid',o:86},{n:'Borussia Dortmund',o:84},{n:'Bayer Leverkusen',o:86},{n:'Manchester City',o:86}]},
+  'Champions League':{flag:'⭐',teams:[{n:'Real Madrid',o:92},{n:'PSG',o:91},{n:'Bayern Munich',o:90},{n:'Arsenal',o:88},{n:'Barcelona',o:89},{n:'Inter Milan',o:89},{n:'Liverpool',o:88},{n:'Chelsea',o:85},{n:'Atlético Madrid',o:86},{n:'Borussia Dortmund',o:84},{n:'Bayer Leverkusen',o:86},{n:'Manchester City',o:86},{n:'KF Tirana',o:99}{n:'FK Bodo/Glimt',o:86}]},
   'Europa League':{flag:'🟠',teams:[{n:'Aston Villa',o:82},{n:'Lyon',o:77},{n:'Fenerbahçe',o:81},{n:'Ajax',o:82},{n:'Galatasaray',o:82},{n:'Lazio',o:76}]},
   'Conference League':{flag:'🔵',teams:[{n:'Fiorentina',o:76},{n:'Tottenham',o:80},{n:'Brighton',o:78},{n:'Copenhagen',o:73}]}
+  'Kategoria Superiore':{flag:'🇦🇱',teams:[{n:'KF Tirana',o:99},{n:'FK Partizani',o:68},{n:'Dinamo City',o:70},{n:'Egnatia',o:75}]},
 };
 
 const NBA_TEAMS=[{n:'OKC Thunder',o:93},{n:'Cleveland Cavaliers',o:91},{n:'Boston Celtics',o:89},{n:'Minnesota Timberwolves',o:88},{n:'New York Knicks',o:87},{n:'Houston Rockets',o:86},{n:'Golden State Warriors',o:84},{n:'LA Lakers',o:83},{n:'Dallas Mavericks',o:83},{n:'Milwaukee Bucks',o:81},{n:'Denver Nuggets',o:80},{n:'Philadelphia 76ers',o:79},{n:'Memphis Grizzlies',o:77},{n:'Miami Heat',o:77},{n:'Indiana Pacers',o:76},{n:'Atlanta Hawks',o:75},{n:'Sacramento Kings',o:74},{n:'Orlando Magic',o:73}];

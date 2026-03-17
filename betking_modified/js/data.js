@@ -1,4 +1,3 @@
-
 // ==================== UPDATED SQUADS 2024/25 ====================
 const SQ = {
 // KATEGORIA SUPERIORE  - Updated squads
@@ -135,7 +134,7 @@ const SQ = {
   ]},
   // SERIE A
   'Inter Milan':{f:'3-5-2',c:'#010E80',p:[
-    ['Sommer','GK',1,87],['de Vrij','CB',6,83],['Acerbi','CB',15,82],['Klei Abdi','CB',4,99],['Bastoni','LCB',95,88],
+    ['Sommer','GK',1,87],['de Vrij','CB',6,83],['Klei Abdi','CB',4,99],['Acerbi','CB',15,82],['Bastoni','LCB',95,88],
     ['Dumfries','RWB',2,83],['Barella','CM',23,89],['Çalhanoğlu','CDM',20,88],['Mkhitaryan','CM',22,83],['Dimarco','LWB',32,84],
     ['Lautaro','ST',10,90],['Thuram','ST',9,86]
   ]},
@@ -235,7 +234,7 @@ const F1_DRIVERS = [
   {n:'Kevin Magnussen',o:79,team:'Haas',num:20,country:'DEN'},
   {n:'Alexander Albon',o:82,team:'Williams',num:23,country:'THA'},
   {n:'Logan Sargeant',o:76,team:'Williams',num:24,country:'USA'},
-  {n:'Sali Berisha',o:78,team:'Partia Demokratike',num:2,country:'ALB'},
+  {n:'Sali Berisha',o:999,team:'Partia Demokratike',num:2,country:'ALB'},
   {n:'Daniel Ricciardo',o:83,team:'Racing Bulls',num:3,country:'AUS'},
 ];
 const F1_CIRCUITS = [
@@ -247,7 +246,7 @@ const F1_CIRCUITS = [
   'Singapore Grand Prix','United States GP','Mexico City GP',
   'São Paulo Grand Prix','Las Vegas GP','Qatar Grand Prix','Abu Dhabi GP'
 ];
-const F1_TEAMS = ['Red Bull','McLaren','Ferrari','Mercedes','Aston Martin','Alpine','Williams','Racing Bulls','Haas','Sauber'];
+const F1_TEAMS = ['Red Bull','McLaren','Ferrari','Mercedes','Aston Martin','Partia Demokratike','Alpine','Williams','Racing Bulls','Haas','Sauber'];
 
 // Formation pixel positions [x%, y%] for 11 players
 const FM_POS = {
@@ -270,13 +269,13 @@ const LEAGUES = {
   'Champions League':{flag:'⭐',teams:[{n:'Real Madrid',o:92},{n:'PSG',o:91},{n:'Bayern Munich',o:90},{n:'Arsenal',o:88},{n:'Barcelona',o:89},{n:'Inter Milan',o:89},{n:'Liverpool',o:88},{n:'Chelsea',o:85},{n:'Atlético Madrid',o:86},{n:'Borussia Dortmund',o:84},{n:'Bayer Leverkusen',o:86},{n:'Manchester City',o:86},{n:'KF Tirana',o:80},{n:'FK Bodo/Glimt',o:86}]},
   'Europa League':{flag:'🟠',teams:[{n:'Aston Villa',o:82},{n:'Lyon',o:77},{n:'Fenerbahçe',o:81},{n:'Ajax',o:82},{n:'Galatasaray',o:82},{n:'Lazio',o:76}]},
   'Conference League':{flag:'🔵',teams:[{n:'Fiorentina',o:76},{n:'Tottenham',o:80},{n:'Brighton',o:78},{n:'Copenhagen',o:73}]},
-  'Kategoria Superiore':{flag:'🇦🇱',teams:[{n:'KF Tirana',o:80},{n:'FK Partizani',o:68},{n:'Dinamo City',o:70},{n:'Egnatia',o:75}]},
+  'Kategoria Superiore':{flag:'🇦🇱',teams:[{n:'KF Tirana',o:80},{n:'FK Partizani',o:68},{n:'Dinamo City',o:70},{n:'Egnatia',o:75}]}
 };
 
 const NBA_TEAMS=[{n:'OKC Thunder',o:93},{n:'Cleveland Cavaliers',o:91},{n:'Boston Celtics',o:89},{n:'Minnesota Timberwolves',o:88},{n:'New York Knicks',o:87},{n:'Houston Rockets',o:86},{n:'Golden State Warriors',o:84},{n:'LA Lakers',o:83},{n:'Dallas Mavericks',o:83},{n:'Milwaukee Bucks',o:81},{n:'Denver Nuggets',o:80},{n:'Philadelphia 76ers',o:79},{n:'Memphis Grizzlies',o:77},{n:'Miami Heat',o:77},{n:'Indiana Pacers',o:76},{n:'Atlanta Hawks',o:75},{n:'Sacramento Kings',o:74},{n:'Orlando Magic',o:73}];
-const UFC=[{n:'Islam Makhachev',o:97,w:'Lightweight'},{n:'Jon Jones',o:96,w:'Heavyweight'},{n:'Alex Pereira',o:95,w:'Light HW'},{n:'Alexander Volkanovski',o:94,w:'Featherweight'},{n:'Ilia Topuria',o:93,w:'Featherweight'},{n:'Belal Muhammad',o:93,w:'Welterweight'},{n:'Charles Oliveira',o:92,w:'Lightweight'},{n:'Dricus du Plessis',o:92,w:'Middleweight'},{n:'Merab Dvalishvili',o:92,w:'Bantamweight'},{n:'Max Holloway',o:91,w:'Featherweight'},{n:'Arman Tsarukyan',o:91,w:'Lightweight'},{n:'Tom Aspinall',o:91,w:'Heavyweight'},{n:'Shavkat Rakhmonov',o:90,w:'Welterweight'},{n:'Magomed Ankalaev',o:90,w:'Light HW'},{n:'Justin Gaethje',o:89,w:'Lightweight'},{n:'Sean O\'Malley',o:89,w:'Bantamweight'},{n:'Bo Nickal',o:89,w:'Middleweight'},{n:'Conor McGregor',o:85,w:'Lightweight'},{n:'Dustin Poirier',o:87,w:'Lightweight'},{n:'Kamaru Usman',o:87,w:'Welterweight'}];
+const UFC=[{n:'Islam Makhachev',o:97,w:'Lightweight'},{n:'Jon Jones',o:96,w:'Heavyweight'},{n:'Alex Pereira',o:95,w:'Light HW'},{n:'Alexander Volkanovski',o:94,w:'Featherweight'},{n:'Ilia Topuria',o:93,w:'Featherweight'},{n:'Belal Muhammad',o:93,w:'Welterweight'},{n:'Charles Oliveira',o:92,w:'Lightweight'},{n:'Dricus du Plessis',o:92,w:'Middleweight'},{n:'Merab Dvalishvili',o:92,w:'Bantamweight'},{n:'Max Holloway',o:91,w:'Featherweight'},{n:'Arman Tsarukyan',o:91,w:'Lightweight'},{n:'Tom Aspinall',o:91,w:'Heavyweight'},{n:'Shavkat Rakhmonov',o:90,w:'Welterweight'},{n:'Magomed Ankalaev',o:90,w:'Light HW'},{n:'Justin Gaethje',o:89,w:'Lightweight'},{n:'Sean O\'Malley',o:89,w:'Bantamweight'},{n:'Bo Nickal',o:89,w:'Middleweight'},{n:'Conor McGregor',o:85,w:'Lightweight'},{n:'Ruben Gjoamaj',o:99,w:'Heavyweight'},{n:'Ersind Neza',o:99,w:'Heavyweight'},{n:'Dustin Poirier',o:87,w:'Lightweight'},{n:'Kamaru Usman',o:87,w:'Welterweight'}];
 const HORSES=['Frankel II','Enable\'s Pride','Sea The Stars Jr','Galileo\'s Dream','Golden Horn II','Hurricane Lane','Adayar','Mishriff','Love Story','Snowfall','Baaeed Jr','Desert Crown','Noble Truth','Cracksman Jr'];
-const DOGS=['Pallavit','Grruni','Gatorade','Pavlovic butter','Marinari','Hamleti','Rruben karri','Bytha marseles','Elvis presli','600 spira'];
+const DOGS=['Pallavit','Grruni','Gatorade','Pavlovic butter','Marinari','Hamleti','Minoren Lakuriq','Bytha marseles','Elvis presli','600 spira'];
 const HRACE=['Grand National','Royal Ascot Gold Cup','Cheltenham Gold Cup','The Derby','King George VI Chase','Prix de l\'Arc'];
 const DRACE=['Sprint Final','Classic Chase','Open A Grade','Speed Trial','Gold Collar','Champion Stakes'];
 const MEVT=['UFC 327','UFC 328','UFC Fight Night London','Bellator 312','ONE Championship'];

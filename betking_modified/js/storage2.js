@@ -115,34 +115,3 @@ setInterval(() => {
     try { renderEvents(); updateUI(); } catch(e) {}
   }
 }, 2000);
-        // Advance games, not sets directly — sets advance when a player wins 6 games with 2-game lead
-        if (Math.random() < 0.06) {
-          if (Math.random() < 0.5) ev.p1Games = (ev.p1Games || 0) + 1;
-          else ev.p2Games = (ev.p2Games || 0) + 1;
-          if ((ev.p1Games || 0) >= 6 && (ev.p1Games || 0) - (ev.p2Games || 0) >= 2) {
-            ev.p1Sets = (ev.p1Sets || 0) + 1; ev.p1Games = 0; ev.p2Games = 0;
-          } else if ((ev.p2Games || 0) >= 6 && (ev.p2Games || 0) - (ev.p1Games || 0) >= 2) {
-            ev.p2Sets = (ev.p2Sets || 0) + 1; ev.p1Games = 0; ev.p2Games = 0;
-          }
-      } else if (sport === 'cricket') {
-        if (Math.random() < 0.08) {
-          ev.hRuns = (ev.hRuns || 0) + pick([0, 1, 1, 2, 4, 6]);
-          if (Math.random() < 0.15) ev.hWkts = (ev.hWkts || 0) + 1;
-          ev.overs = (Math.round((parseFloat(ev.overs || 0) + 0.2) * 10) / 10).toFixed(1);
-        }
-      } else if (sport === 'f1') {
-        if (ev.lap < ev.totalLaps) ev.lap = Math.min(ev.totalLaps, ev.lap + 0.5);
-        if (!rProg[ev.id]) rProg[ev.id] = (ev.drivers || []).map((_, i) => i * 2.5);
-        rProg[ev.id].forEach((_, i) => {
-          rProg[ev.id][i] = Math.min(100, (rProg[ev.id][i] || 0) + rnd(0.05, 0.15) * (1 - i * 0.012));
-        });
-     const leader = Array.from(rProg[ev.id].keys()).sort(function(a,b){return rProg[ev.id][b]-rProg[ev.id][a];})[0];
-        if (ev.drivers && ev.drivers[leader]) ev.leader = ev.drivers[leader].n;
-      }
-      if (typeof checkRoundEnd === 'function') checkRoundEnd(sport);
-    });
-  });
-  if (anyLive && Math.random() < 0.4) {
-    try { renderEvents(); updateUI(); } catch(e) {}
-  }
-}, 2000);

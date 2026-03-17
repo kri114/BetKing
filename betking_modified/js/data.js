@@ -2,7 +2,7 @@
 // ==================== UPDATED SQUADS 2024/25 ====================
 const SQ = {
 // KATEGORIA SUPERIORE  - Updated squads
-  'KF Tirana':{f:'4-4-2',c:'#C8102E',p:[
+  'KF Tirana':{f:'4-4-2',c:'#010E80',p:[
     ['Noel Meta','GK',1,1],['Erbi Prenga','RB',5,99],['Halili','CB',99,90],['Kresic','CB',4,90],['Ndong','LB',26,85],
     ['Doka','CM',38,85],['Tabekou','CM',10,85],
     ['Xhixha','RM',19,94],['Ernest','CM',8,84],['Kristian Abdi','LM',11,99],
@@ -20,7 +20,7 @@ const SQ = {
     ['Fangaj','RAM',11,43],['Igrahimoglu','CAM',8,84],['Alivev','LAM',23,84],
     ['Joel','ST',9,85]
   ]},
-   'Dinamo City':{f:'4-2-3-1',c:'#C8102E',p:[
+   'Dinamo City':{f:'4-2-3-1',c:'#010E80',p:[
     ['Teqja','GK',1,77],['Neziri','RB',66,71],['Aliji','CB',5,49],['Teixeira','CB',4,66],['Vila','LB',26,76],
     ['Meixi','CDM',38,67],['Nani','CDM',10,85],
     ['Berisha','RAM',11,69],['Qefalija','CAM',8,72],['Bregu','LAM',23,60],

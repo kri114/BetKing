@@ -299,3 +299,33 @@ function rF1(e){
     </div>
   </div>`;
 }
+function rOlympic(e){
+  if(!e||!e.runners)return '';
+  const badge=e.isLive?`<span class="lbdg">LIVE</span>`:`<span class="tbdg">${e.startTime}</span>`;
+  const ws=e.isLive?`<button class="wbtn" onclick="openViewer('${e.id}',event)">▶ Watch</button>`:'';
+  const sorted=rProg&&rProg[e.id]?[...rProg[e.id].keys()].sort((a,b)=>rProg[e.id][b]-rProg[e.id][a]):[];
+  return `<div class="ecard${e.isLive?' live':''}">
+    ${ws}
+    <div class="ehdr"><span class="elg">🏃 Athletics</span>${badge}</div>
+    <div class="ebody">
+      <div class="ematch" style="flex-direction:column;align-items:flex-start;gap:4px">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700">${e.title}</div>
+        <div style="font-size:10px;color:var(--txt3)">${e.info}</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin:6px 0">
+        ${e.runners.map((r,i)=>{
+          const rank=sorted.indexOf(i)+1;
+          const prog=rProg&&rProg[e.id]?Math.round(rProg[e.id][i])+'%':'—';
+          return `<div style="background:var(--bg3);border:1px solid var(--bdr);border-radius:6px;padding:4px 7px;min-width:80px">
+            <div style="font-size:9px;color:var(--txt3)">#${r.num}${e.isLive&&rank?' P'+rank:''}</div>
+            <div style="font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700">${r.name.split(' ')[0]}</div>
+            <div style="font-size:9px;color:var(--gold)">${r.winOdds}x</div>
+            ${e.isLive?`<div style="font-size:8px;color:var(--blu)">${prog}</div>`:''}
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="os"><div class="ost">Win</div><div class="or">${e.runners.map(r=>ob(e.id,e.title,r.name+' Win',r.winOdds,'olympic','win_'+r.num,r.name.split(' ')[0])).join('')}</div></div>
+      <div class="os"><div class="ost">Place</div><div class="or">${e.runners.map(r=>ob(e.id,e.title,r.name+' Place',r.placeOdds,'olympic','place_'+r.num,r.name.split(' ')[0])).join('')}</div></div>
+    </div>
+  </div>`;
+}

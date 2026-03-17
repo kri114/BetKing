@@ -36,17 +36,6 @@ setInterval(save,15000);
     generateAll();
     console.log('[BetKing] Football events:', G.evts.football.length);
     console.log('[BetKing] Basketball events:', G.evts.basketball.length);
-    // Auto-start all events so games are live immediately on load
-    ['football','basketball','horses','dogs','mma','tennis','cricket','f1'].forEach(sport => {
-      (G.evts[sport] || []).forEach(ev => {
-        ev.isLive = true;
-        ev.startTime = 'LIVE';
-        if (sport === 'football') { ev.minute = ri(1, 45); }
-        else if (sport === 'basketball') { ev.quarter = 1; }
-        else if (sport === 'mma') { ev.round = 1; }
-        else if (sport === 'f1') { ev.lap = ri(1, 10); ev.leader = ev.drivers && ev.drivers[0] ? ev.drivers[0].n : null; }
-      });
-    });
     console.log('[BetKing] Rendering...');
     renderAll();
     updateUI();

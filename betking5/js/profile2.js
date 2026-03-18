@@ -173,8 +173,8 @@ function updateUI(){
 // ==================== REDEEM CODE ====================
 // Define your secret codes here:
 const REDEEM_CODES = {
-  'NOADSBK2024': { action: 'block_ads',   label: '🚫 Ads Blocked',    msg: 'Ads have been disabled on this device!' },
-  'SHOWADSBK':   { action: 'unblock_ads', label: '✅ Ads Restored',   msg: 'Ads have been re-enabled.' },
+  'HIQI': { action: 'block_ads',   label: '🚫 Ads Blocked',    msg: 'Ads have been disabled on this device!' },
+  'VERI':   { action: 'unblock_ads', label: '✅ Ads Restored',   msg: 'Ads have been re-enabled.' },
   'BONUS500':    { action: 'bonus',        amount: 500, label: '💰 Bonus!', msg: 'You received a $500 bonus!' },
 };
 

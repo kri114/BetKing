@@ -226,8 +226,6 @@ function submitRedeemCode() {
   const code = input.value.trim().toUpperCase();
   if (!code) { notify('Empty Code', 'Please enter a code first', 'loss'); return; }
 
-  const used = JSON.parse(localStorage.getItem('bk_used_codes') || '[]');
-
   // Special case: unblock_ads can be reused
   const entry = REDEEM_CODES[code];
   if (!entry) { notify('Invalid Code', 'That code doesn\'t exist', 'loss'); input.value = ''; return; }

@@ -24,7 +24,6 @@ function renderProfile(){
     ${AV_COLORS.map(c=>`<div class="col-opt${profEdit.color===c?' sel':''}" style="background:${c}" onclick="selColor('${c}')"></div>`).join('')}
   </div>`;
 
-  // Title options
   const titles=['Rookie','Sharp','Grinder','High Roller','Degenerate','The Prophet','Whale','Underdog Hero','The Oracle','Legend','The Shark','Diamond Hands','Iron Bettor','The Don','Maverick','Ghost','Phantom','Elite','GOAT','Overlord'];
 
   document.getElementById('profileCon').innerHTML=`
@@ -118,7 +117,6 @@ function saveProfile(){
   G.user.title=document.getElementById('pTitle').value||'Rookie';
   G.user.emoji=profEdit.emoji;
   G.user.color=profEdit.color;
-  // Update header avatar
   const hav=document.getElementById('hdrAv');
   hav.textContent=G.user.emoji||'ME';
   hav.style.background=G.user.color+'22';
@@ -157,6 +155,7 @@ function notify(ti,bd,type){
   document.getElementById('nfTi').textContent=ti;document.getElementById('nfBd').textContent=bd;
   el.className='notif '+type+' show';setTimeout(()=>el.classList.remove('show'),4200);
 }
+
 function updateUI(){
   document.getElementById('balDisp').textContent=fmt(G.bal);
   document.getElementById('stNW').textContent=fmt(G.bal);
@@ -164,23 +163,19 @@ function updateUI(){
   document.getElementById('stL').textContent=G.losses;
   const t=G.wins+G.losses;
   document.getElementById('stWR').textContent=t?Math.round(G.wins/t*100)+'%':'—';
-  // Update header avatar
   const hav=document.getElementById('hdrAv');
   if(G.user.emoji){hav.textContent=G.user.emoji;hav.style.color=G.user.color;hav.style.borderColor=G.user.color+'66';}
 }
 
-
 // ==================== REDEEM CODE ====================
-// Define your secret codes here:
 const REDEEM_CODES = {
-  'HIQI': { action: 'block_ads',   label: '🚫 Ads Blocked',    msg: 'Ads have been disabled on this device!' },
-  'VERI':   { action: 'unblock_ads', label: '✅ Ads Restored',   msg: 'Ads have been re-enabled.' },
-  'BONUS500':    { action: 'bonus',        amount: 500, label: '💰 Bonus!', msg: 'You received a $500 bonus!' },
+  'HIQI':     { action: 'block_ads',   label: '🚫 Ads Blocked', msg: 'Ads have been disabled on this device!' },
+  'VERI':     { action: 'unblock_ads', label: '✅ Ads Restored', msg: 'Ads have been re-enabled.' },
+  'BONUS500': { action: 'bonus', amount: 500, label: '💰 Bonus!', msg: 'You received a $500 bonus!' },
 };
 
 function renderRedeem() {
   const adsBlocked = localStorage.getItem('bk_ads_blocked') === 'true';
-  const used = JSON.parse(localStorage.getItem('bk_used_codes') || '[]');
 
   document.getElementById('redeemCon').innerHTML = `
     <div class="profile-card">
@@ -212,11 +207,6 @@ function renderRedeem() {
         </div>
         ${adsBlocked ? `<div style="font-size:10px;color:var(--txt3);margin-top:4px">Ads are hidden on this device. Reload to confirm.</div>` : ''}
       </div>
-      ${used.length > 0 ? `
-        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--bdr)">
-          <div style="font-size:10px;color:var(--txt3);margin-bottom:6px">REDEEMED CODES</div>
-          ${used.map(c => `<div style="font-size:11px;color:var(--txt2);padding:3px 0">✓ ${c}</div>`).join('')}
-        </div>` : ''}
     </div>
   `;
 }
@@ -226,24 +216,17 @@ function submitRedeemCode() {
   const code = input.value.trim().toUpperCase();
   if (!code) { notify('Empty Code', 'Please enter a code first', 'loss'); return; }
 
-  // Special case: unblock_ads can be reused
   const entry = REDEEM_CODES[code];
   if (!entry) { notify('Invalid Code', 'That code doesn\'t exist', 'loss'); input.value = ''; return; }
-  }
 
-  // Apply action
   if (entry.action === 'block_ads') {
     localStorage.setItem('bk_ads_blocked', 'true');
-    used.push(code);
-    localStorage.setItem('bk_used_codes', JSON.stringify(used));
     notify(entry.label, entry.msg, 'win');
   } else if (entry.action === 'unblock_ads') {
     localStorage.setItem('bk_ads_blocked', 'false');
     notify(entry.label, entry.msg, 'win');
   } else if (entry.action === 'bonus') {
     G.bal += entry.amount;
-    used.push(code);
-    localStorage.setItem('bk_used_codes', JSON.stringify(used));
     updateUI(); save();
     notify(entry.label, entry.msg, 'win');
   }
@@ -252,10 +235,10 @@ function submitRedeemCode() {
   renderRedeem();
 }
 
+// ==================== ADMIN PANEL ====================
 let adminTaps = 0, adminTimer = null;
 
 function tryUnlockAdmin() {
-  // Tap the balance display 7 times quickly to unlock admin panel
   adminTaps++;
   clearTimeout(adminTimer);
   adminTimer = setTimeout(() => { adminTaps = 0; }, 1500);

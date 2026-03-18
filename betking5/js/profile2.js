@@ -231,11 +231,6 @@ function submitRedeemCode() {
   // Special case: unblock_ads can be reused
   const entry = REDEEM_CODES[code];
   if (!entry) { notify('Invalid Code', 'That code doesn\'t exist', 'loss'); input.value = ''; return; }
-
-  if (entry.action !== 'unblock_ads' && used.includes(code)) {
-    notify('Already Used', 'You\'ve already redeemed this code', 'loss');
-    input.value = '';
-    return;
   }
 
   // Apply action

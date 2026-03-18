@@ -173,8 +173,8 @@ function updateUI(){
 // ==================== REDEEM CODE ====================
 // Define your secret codes here:
 const REDEEM_CODES = {
-  'NOADSBK2024': { action: 'block_ads',   label: '🚫 Ads Blocked',    msg: 'Ads have been disabled on this device!' },
-  'SHOWADSBK':   { action: 'unblock_ads', label: '✅ Ads Restored',   msg: 'Ads have been re-enabled.' },
+  'HIQI': { action: 'block_ads',   label: '🚫 Ads Blocked',    msg: 'Ads have been disabled on this device!' },
+  'VERI':   { action: 'unblock_ads', label: '✅ Ads Restored',   msg: 'Ads have been re-enabled.' },
   'BONUS500':    { action: 'bonus',        amount: 500, label: '💰 Bonus!', msg: 'You received a $500 bonus!' },
 };
 
@@ -231,11 +231,6 @@ function submitRedeemCode() {
   // Special case: unblock_ads can be reused
   const entry = REDEEM_CODES[code];
   if (!entry) { notify('Invalid Code', 'That code doesn\'t exist', 'loss'); input.value = ''; return; }
-
-  if (entry.action !== 'unblock_ads' && used.includes(code)) {
-    notify('Already Used', 'You\'ve already redeemed this code', 'loss');
-    input.value = '';
-    return;
   }
 
   // Apply action
